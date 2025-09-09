@@ -3,20 +3,17 @@ import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import App from './App.tsx'
 import './index.css'
-
-// Import GOV.UK Frontend SCSS
-import 'govuk-frontend/govuk/all.scss'
-
-// Import GOV.UK Frontend JavaScript
-import { initAll } from 'govuk-frontend'
+import './styles/govuk-custom.css'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter
+      future={{
+        v7_startTransition: true,
+        v7_relativeSplatPath: true
+      }}
+    >
       <App />
     </BrowserRouter>
   </React.StrictMode>,
 )
-
-// Initialize GOV.UK Frontend JavaScript components
-initAll()

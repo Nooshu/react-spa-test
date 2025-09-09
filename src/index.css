@@ -1,6 +1,4 @@
-/* GOV.UK Frontend base styles are imported in main.tsx */
-
-/* Completely override GOV.UK font loading to prevent errors */
+/* Override GOV.UK font loading to prevent errors */
 @font-face {
   font-family: 'GDS Transport';
   src: local('Arial'), local('Helvetica'), local('sans-serif');
@@ -34,10 +32,9 @@
   font-display: swap !important;
 }
 
-/* Prevent any font loading attempts */
 @font-face {
   font-family: 'GDS Transport';
-  src: local('Arial'), local('Helvetica'), local('sans-serif') !important;
+  src: local('Arial Bold'), local('Helvetica Bold'), local('sans-serif') !important;
   font-weight: bold !important;
   font-style: normal !important;
   font-display: swap !important;
@@ -51,7 +48,6 @@
   font-display: swap !important;
 }
 
-/* Override any font URLs that might be generated */
 @font-face {
   font-family: 'GDS Transport';
   src: local('Arial'), local('Helvetica'), local('sans-serif') !important;
@@ -75,7 +71,7 @@ body {
 }
 
 /* Skip link for keyboard navigation */
-.skip-link {
+.govuk-skip-link {
   position: absolute;
   top: -40px;
   left: 6px;
@@ -86,7 +82,7 @@ body {
   z-index: 1000;
 }
 
-.skip-link:focus {
+.govuk-skip-link:focus {
   top: 0;
 }
 
@@ -106,4 +102,61 @@ img {
 .error {
   border-left: 4px solid #d4351c;
   padding-left: 15px;
+}
+
+/* Override any external font loading attempts */
+@font-face {
+  font-family: 'GDS Transport';
+  src: local('Arial'), local('Helvetica'), local('sans-serif') !important;
+  font-weight: 100 !important;
+  font-style: normal !important;
+  font-display: swap !important;
+}
+
+@font-face {
+  font-family: 'GDS Transport';
+  src: local('Arial'), local('Helvetica'), local('sans-serif') !important;
+  font-weight: 200 !important;
+  font-style: normal !important;
+  font-display: swap !important;
+}
+
+@font-face {
+  font-family: 'GDS Transport';
+  src: local('Arial'), local('Helvetica'), local('sans-serif') !important;
+  font-weight: 500 !important;
+  font-style: normal !important;
+  font-display: swap !important;
+}
+
+@font-face {
+  font-family: 'GDS Transport';
+  src: local('Arial'), local('Helvetica'), local('sans-serif') !important;
+  font-weight: 600 !important;
+  font-style: normal !important;
+  font-display: swap !important;
+}
+
+@font-face {
+  font-family: 'GDS Transport';
+  src: local('Arial'), local('Helvetica'), local('sans-serif') !important;
+  font-weight: 700 !important;
+  font-style: normal !important;
+  font-display: swap !important;
+}
+
+@font-face {
+  font-family: 'GDS Transport';
+  src: local('Arial'), local('Helvetica'), local('sans-serif') !important;
+  font-weight: 800 !important;
+  font-style: normal !important;
+  font-display: swap !important;
+}
+
+@font-face {
+  font-family: 'GDS Transport';
+  src: local('Arial'), local('Helvetica'), local('sans-serif') !important;
+  font-weight: 900 !important;
+  font-style: normal !important;
+  font-display: swap !important;
 }

@@ -33,7 +33,12 @@ export default defineConfig({
       scss: {
         api: 'modern-compiler', // Use modern SASS API
         silenceDeprecations: ['legacy-js-api', 'import', 'global-builtin', 'slash-div'],
-        quietDeps: true
+        quietDeps: true,
+        additionalData: `
+          $govuk-fonts-path: "";
+          $govuk-fonts-version: "";
+          $govuk-fonts-url: "";
+        `
       }
     }
   },
