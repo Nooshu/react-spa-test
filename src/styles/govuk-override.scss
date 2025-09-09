@@ -1,0 +1,71 @@
+// Override GOV.UK font variables before importing
+$govuk-font-family: "GDS Transport", arial, sans-serif;
+$govuk-font-family-tabular: "GDS Transport", arial, sans-serif;
+
+// Completely disable font file loading
+$govuk-fonts-path: "";
+$govuk-fonts-version: "";
+$govuk-fonts-url: "";
+
+// Override the font-face mixin to prevent font loading
+@mixin govuk-font-face($font-family, $filepath, $font-weight: normal, $font-style: normal) {
+  // Do nothing - prevent font loading
+}
+
+// Override font-face declarations before GOV.UK imports
+@font-face {
+  font-family: 'GDS Transport';
+  src: local('Arial'), local('Helvetica'), local('sans-serif');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GDS Transport';
+  src: local('Arial Bold'), local('Helvetica Bold'), local('sans-serif');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GDS Transport';
+  src: local('Arial'), local('Helvetica'), local('sans-serif');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+// Import GOV.UK Frontend core without fonts - use individual imports to avoid font loading
+@import "govuk-frontend/govuk/settings/all";
+@import "govuk-frontend/govuk/tools/all";
+@import "govuk-frontend/govuk/helpers/all";
+@import "govuk-frontend/govuk/core/all";
+@import "govuk-frontend/govuk/objects/all";
+@import "govuk-frontend/govuk/components/all";
+@import "govuk-frontend/govuk/utilities/all";
+@import "govuk-frontend/govuk/overrides/all";
+
+// Override any remaining font-face declarations that might have been generated
+@font-face {
+  font-family: 'GDS Transport';
+  src: local('Arial'), local('Helvetica'), local('sans-serif') !important;
+  font-weight: normal !important;
+  font-style: normal !important;
+  font-display: swap !important;
+}
+
+// Override problematic color values that cause parsing errors
+:root {
+  --govuk-colour-primary: #0b0c0c;
+  --govuk-colour-secondary: #1d70b8;
+  --govuk-colour-success: #00703c;
+  --govuk-colour-warning: #f47738;
+  --govuk-colour-error: #d4351c;
+  --govuk-colour-text: #0b0c0c;
+  --govuk-colour-link: #1d70b8;
+  --govuk-colour-link-hover: #003078;
+  --govuk-colour-link-visited: #4c2c92;
+  --govuk-colour-link-active: #0b0c0c;
+}
