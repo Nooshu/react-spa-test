@@ -124,7 +124,7 @@ export function withPerformanceMeasurement<T extends React.ComponentType<any>>(
     })
 
     return React.createElement(Component, { ...props, ref })
-  }) as T
+  }) as unknown as T
 }
 
 // Performance observer for Web Vitals

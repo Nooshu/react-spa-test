@@ -32,8 +32,8 @@ if (process.env.NODE_ENV === 'development') {
 
   // Intercept font loading errors
   const originalFetch = window.fetch
-  window.fetch = async (input, init) => {
-    const url = typeof input === 'string' ? input : input.url
+  window.fetch = async (input: RequestInfo | URL, init?: RequestInit) => {
+    const url = typeof input === 'string' ? input : (input as Request).url
     if (url.includes('.woff') || url.includes('.woff2') || url.includes('fonts/') || url.includes('$govuk-fonts-path') || url.includes('$filename')) {
       // Return a mock response for font files to prevent errors
       return new Response('', { status: 200, statusText: 'OK' })
@@ -43,17 +43,17 @@ if (process.env.NODE_ENV === 'development') {
 
   // Intercept XMLHttpRequest for font files
   const originalXHROpen = XMLHttpRequest.prototype.open
-  XMLHttpRequest.prototype.open = function(method, url, ...args) {
+  XMLHttpRequest.prototype.open = function(method: string, url: string | URL, ...args: unknown[]) {
     if (typeof url === 'string' && (url.includes('.woff') || url.includes('.woff2') || url.includes('fonts/') || url.includes('$govuk-fonts-path') || url.includes('$filename'))) {
       // Prevent font requests
       return
     }
-    return originalXHROpen.call(this, method, url, ...args)
+    return originalXHROpen.call(this, method, url, ...(args as [boolean, string?, string?]))
   }
 
   // Intercept link element font loading
   const originalCreateElement = document.createElement
-  document.createElement = function(tagName) {
+  document.createElement = function(tagName: string) {
     const element = originalCreateElement.call(this, tagName)
     if (tagName.toLowerCase() === 'link') {
       const originalSetAttribute = element.setAttribute

@@ -1,5 +1,4 @@
 // Styled-components configuration to suppress development warnings
-import { StyleSheetManager } from 'styled-components'
 
 // Custom shouldForwardProp function to filter out unknown props
 const shouldForwardProp = (prop: string) => {

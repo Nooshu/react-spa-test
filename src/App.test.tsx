@@ -1,5 +1,6 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
+import '@testing-library/jest-dom'
 import { BrowserRouter } from 'react-router-dom'
 import App from './App'
 
@@ -54,9 +55,12 @@ describe('App', () => {
       </BrowserRouter>
     )
     
-    expect(screen.getByText('Home')).toBeInTheDocument()
-    expect(screen.getByText('Forms')).toBeInTheDocument()
-    expect(screen.getByText('Components')).toBeInTheDocument()
-    expect(screen.getByText('Performance')).toBeInTheDocument()
+    const mainNavigation = screen.getByRole('navigation', { name: 'Main navigation' })
+    expect(mainNavigation).toBeInTheDocument()
+    
+    expect(mainNavigation).toHaveTextContent('Home')
+    expect(mainNavigation).toHaveTextContent('Forms')
+    expect(mainNavigation).toHaveTextContent('Components')
+    expect(mainNavigation).toHaveTextContent('Performance')
   })
 })

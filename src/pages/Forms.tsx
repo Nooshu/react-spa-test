@@ -140,7 +140,7 @@ const Forms: React.FC = () => {
             id="name"
             name="name"
             value={formData.name}
-            onChange={(e) => handleInputChange('name', e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('name', e.target.value)}
             error={!!errors.name}
           />
           {errors.name && <ErrorText>{errors.name}</ErrorText>}
@@ -158,7 +158,7 @@ const Forms: React.FC = () => {
             name="email"
             type="email"
             value={formData.email}
-            onChange={(e) => handleInputChange('email', e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('email', e.target.value)}
             error={!!errors.email}
           />
           {errors.email && <ErrorText>{errors.email}</ErrorText>}
@@ -169,11 +169,14 @@ const Forms: React.FC = () => {
             Age range
           </Label>
           <Select
-            id="age"
-            name="age"
-            value={formData.age}
-            onChange={(e) => handleInputChange('age', e.target.value)}
+            label="Age range"
+            input={{
+              id: "age",
+              value: formData.age,
+              onChange: (e: React.ChangeEvent<HTMLSelectElement>) => handleInputChange('age', e.target.value)
+            }}
             error={!!errors.age}
+            errorText={errors.age}
           >
             <option value="">Select age range</option>
             <option value="18-25">18-25</option>
@@ -191,11 +194,14 @@ const Forms: React.FC = () => {
             Country
           </Label>
           <Select
-            id="country"
-            name="country"
-            value={formData.country}
-            onChange={(e) => handleInputChange('country', e.target.value)}
+            label="Country"
+            input={{
+              id: "country",
+              value: formData.country,
+              onChange: (e: React.ChangeEvent<HTMLSelectElement>) => handleInputChange('country', e.target.value)
+            }}
             error={!!errors.country}
+            errorText={errors.country}
           >
             <option value="">Select country</option>
             <option value="uk">United Kingdom</option>
@@ -316,12 +322,15 @@ const Forms: React.FC = () => {
             Additional comments
           </Label>
           <TextArea
-            id="message"
-            name="message"
-            rows={4}
-            value={formData.message}
-            onChange={(e) => handleInputChange('message', e.target.value)}
-          />
+            input={{
+              id: "message",
+              rows: 4,
+              value: formData.message,
+              onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => handleInputChange('message', e.target.value)
+            }}
+          >
+            Additional comments
+          </TextArea>
         </FormGroup>
 
         <Button type="submit" disabled={isSubmitting}>

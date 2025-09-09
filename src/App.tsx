@@ -1,7 +1,8 @@
-import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
 import Components from './pages/Components'
+import Forms from './pages/Forms'
+import Performance from './pages/Performance'
 
 function App() {
   return (
@@ -28,6 +29,22 @@ function App() {
       </header>
 
       <div className="govuk-width-container">
+        <nav className="govuk-navigation" aria-label="Main navigation">
+          <ul className="govuk-navigation__list">
+            <li className="govuk-navigation__list-item">
+              <a className="govuk-navigation__link" href="/">Home</a>
+            </li>
+            <li className="govuk-navigation__list-item">
+              <a className="govuk-navigation__link" href="/forms">Forms</a>
+            </li>
+            <li className="govuk-navigation__list-item">
+              <a className="govuk-navigation__link" href="/components">Components</a>
+            </li>
+            <li className="govuk-navigation__list-item">
+              <a className="govuk-navigation__link" href="/performance">Performance</a>
+            </li>
+          </ul>
+        </nav>
         <div className="govuk-phase-banner">
           <p className="govuk-phase-banner__content">
             <strong className="govuk-tag govuk-phase-banner__content__tag">
@@ -51,6 +68,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/components" element={<Components />} />
+            <Route path="/forms" element={<Forms />} />
+            <Route path="/performance" element={<Performance />} />
           </Routes>
         </main>
       </div>

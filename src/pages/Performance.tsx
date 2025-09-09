@@ -75,12 +75,12 @@ const Performance: React.FC = () => {
     const itemHeight = 30
     const containerHeight = 300
     const visibleCount = Math.ceil(containerHeight / itemHeight)
+    const startIndex = Math.floor(scrollTop / itemHeight)
 
     useEffect(() => {
-      const startIndex = Math.floor(scrollTop / itemHeight)
       const endIndex = Math.min(startIndex + visibleCount, items.length)
       setVisibleItems(items.slice(startIndex, endIndex))
-    }, [items, scrollTop, visibleCount])
+    }, [items, scrollTop, visibleCount, startIndex])
 
     const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
       setScrollTop(e.currentTarget.scrollTop)
@@ -158,15 +158,13 @@ const Performance: React.FC = () => {
           {isLoading && <LoadingBox>Measuring performance metrics...</LoadingBox>}
 
           {metrics && (
-            <Table
-              head={
-                <Table.Row>
-                  <Table.CellHeader>Metric</Table.CellHeader>
-                  <Table.CellHeader>Value</Table.CellHeader>
-                  <Table.CellHeader>Status</Table.CellHeader>
-                </Table.Row>
-              }
-              rows={performanceTableData.map((row, index) => (
+            <Table caption="Current performance metrics">
+              <Table.Row>
+                <Table.CellHeader>Metric</Table.CellHeader>
+                <Table.CellHeader>Value</Table.CellHeader>
+                <Table.CellHeader>Status</Table.CellHeader>
+              </Table.Row>
+              {performanceTableData.map((row, index) => (
                 <Table.Row key={index}>
                   <Table.Cell>{row.metric}</Table.Cell>
                   <Table.Cell>{row.value}</Table.Cell>
@@ -177,8 +175,7 @@ const Performance: React.FC = () => {
                   </Table.Cell>
                 </Table.Row>
               ))}
-              caption="Current performance metrics"
-            />
+            </Table>
           )}
 
           <H2>Performance Optimizations</H2>

@@ -1,4 +1,4 @@
-import React, { Component, ErrorInfo, ReactNode } from 'react'
+import { Component, ErrorInfo, ReactNode } from 'react'
 import { H1, Paragraph, Panel } from 'govuk-react'
 
 interface Props {
