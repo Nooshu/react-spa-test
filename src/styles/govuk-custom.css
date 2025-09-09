@@ -55,6 +55,8 @@ body {
 
 .govuk-header__logo {
   margin-right: 20px;
+  display: flex;
+  align-items: center;
 }
 
 .govuk-header__link {
@@ -62,14 +64,40 @@ body {
   text-decoration: none;
   font-weight: bold;
   font-size: 18px;
+  display: flex;
+  align-items: center;
 }
 
 .govuk-header__link:hover {
   text-decoration: underline;
 }
 
+.govuk-header__logotype {
+  display: flex;
+  align-items: center;
+}
+
 .govuk-header__logotype-text {
   font-size: 24px;
+  margin-left: 8px;
+}
+
+/* Crown logo */
+.govuk-header__logotype {
+  width: 152px;
+  height: 30px;
+  fill: currentColor;
+  vertical-align: middle;
+}
+
+/* Service name */
+.govuk-header__content {
+  margin-left: auto;
+}
+
+.govuk-header__link--service-name {
+  font-size: 18px;
+  font-weight: normal;
 }
 
 /* Width container */
@@ -100,6 +128,47 @@ body {
   text-transform: uppercase;
   letter-spacing: 1px;
   margin-right: 10px;
+}
+
+/* Navigation */
+.govuk-navigation {
+  background-color: #ffffff;
+  border-bottom: 1px solid #b1b4b6;
+  padding: 0;
+}
+
+.govuk-navigation__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.govuk-navigation__list-item {
+  margin: 0;
+}
+
+.govuk-navigation__link {
+  display: block;
+  padding: 15px 20px;
+  color: #1d70b8;
+  text-decoration: none;
+  font-weight: 400;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.govuk-navigation__link:hover {
+  background-color: #f3f2f1;
+  text-decoration: none;
+}
+
+.govuk-navigation__link:focus {
+  background-color: #fd0;
+  color: #0b0c0c;
+  outline: 3px solid #fd0;
+  outline-offset: -3px;
 }
 
 /* Breadcrumbs */
