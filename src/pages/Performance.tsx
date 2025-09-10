@@ -2,6 +2,7 @@ import React, { useState, useMemo, useCallback } from 'react'
 import { Button } from '@/components/Button'
 import { VirtualList } from '@/components/VirtualList'
 import { PerformanceMetrics } from '@/components/PerformanceMetrics'
+import { PerformanceDashboard } from '@/components/PerformanceDashboard'
 import { MemoizedComponent } from '@/components/MemoizedComponent'
 import { Table } from '@/components/Table'
 
@@ -60,6 +61,12 @@ export const Performance: React.FC = () => {
         <div className="govuk-grid-column-full">
           <h2 className="govuk-heading-l">Current Performance Metrics</h2>
           <PerformanceMetrics />
+        </div>
+      </div>
+
+      <div className="govuk-grid-row govuk-!-margin-top-6">
+        <div className="govuk-grid-column-full">
+          <PerformanceDashboard />
         </div>
       </div>
 

@@ -54,6 +54,16 @@ const copyGovukAssets = () => {
   } catch (error) {
     console.warn('Could not copy GOV.UK images:', error)
   }
+  
+  // Copy CSS file
+  try {
+    copyFileSync(
+      join(__dirname, 'node_modules/govuk-frontend/dist/govuk/govuk-frontend.min.css'),
+      join(publicDir, 'govuk-frontend.min.css')
+    )
+  } catch (error) {
+    console.warn('Could not copy GOV.UK CSS:', error)
+  }
 }
 
 // Copy assets on startup

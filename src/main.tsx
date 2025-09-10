@@ -7,6 +7,10 @@ import './styles/main.scss'
 // Initialize GOV.UK Frontend JavaScript
 import 'govuk-frontend/dist/govuk/govuk-frontend.min.js'
 
+// Initialize performance monitoring
+import { performanceMonitor } from '@/utils/performanceMonitoring'
+import { errorTracker } from '@/utils/errorTracking'
+
 // Declare GOV.UK Frontend global
 declare global {
   interface Window {
@@ -34,6 +38,13 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     </BrowserRouter>
   </React.StrictMode>,
 )
+
+// Initialize monitoring
+performanceMonitor.init()
+errorTracker.trackUserAction('App Initialized', { 
+  timestamp: Date.now(),
+  url: window.location.href 
+})
 
 // Initialize GOV.UK Frontend components after React renders
 setTimeout(() => {

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { getCLS, getFID, getFCP, getLCP, getTTFB } from 'web-vitals'
+import { performanceBudgetMonitor } from '@/utils/performanceBudgets'
 
 interface Metrics {
   cls: number | null
@@ -35,11 +36,9 @@ export const PerformanceMetrics: React.FC = () => {
     return `${value.toFixed(2)}${unit}`
   }
 
-  const getMetricStatus = (value: number | null, thresholds: { good: number; poor: number }) => {
+  const getMetricStatus = (value: number | null, metricName: string) => {
     if (value === null) return 'loading'
-    if (value <= thresholds.good) return 'good'
-    if (value <= thresholds.poor) return 'needs-improvement'
-    return 'poor'
+    return performanceBudgetMonitor.checkBudget(metricName, value)
   }
 
   const metricConfigs = [
@@ -47,35 +46,30 @@ export const PerformanceMetrics: React.FC = () => {
       name: 'cls',
       label: 'Cumulative Layout Shift',
       unit: '',
-      thresholds: { good: 0.1, poor: 0.25 },
       description: 'Measures visual stability'
     },
     {
       name: 'fid',
       label: 'First Input Delay',
       unit: 'ms',
-      thresholds: { good: 100, poor: 300 },
       description: 'Measures interactivity'
     },
     {
       name: 'fcp',
       label: 'First Contentful Paint',
       unit: 'ms',
-      thresholds: { good: 1800, poor: 3000 },
       description: 'Measures loading performance'
     },
     {
       name: 'lcp',
       label: 'Largest Contentful Paint',
       unit: 'ms',
-      thresholds: { good: 2500, poor: 4000 },
       description: 'Measures loading performance'
     },
     {
       name: 'ttfb',
       label: 'Time to First Byte',
       unit: 'ms',
-      thresholds: { good: 800, poor: 1800 },
       description: 'Measures server response time'
     }
   ]
@@ -84,7 +78,7 @@ export const PerformanceMetrics: React.FC = () => {
     <div className="govuk-grid-row">
       {metricConfigs.map((config) => {
         const value = metrics[config.name as keyof Metrics]
-        const status = getMetricStatus(value, config.thresholds)
+        const status = getMetricStatus(value, config.name.toUpperCase())
         
         const statusClasses = {
           good: 'govuk-tag--green',
