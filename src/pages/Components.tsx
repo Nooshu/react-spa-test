@@ -1,13 +1,41 @@
 import React, { useState } from 'react'
-import { Button } from '@/components/Button'
-import { Accordion } from '@/components/Accordion'
-import { Tabs } from '@/components/Tabs'
-import { Table } from '@/components/Table'
-import { Card } from '@/components/Card'
-import { Alert } from '@/components/Alert'
+import { 
+  Button, 
+  Accordion, 
+  Tabs, 
+  Table, 
+  Card, 
+  Alert,
+  BackLink,
+  Breadcrumbs,
+  CharacterCount,
+  Checkboxes,
+  CookieBanner,
+  DateInput,
+  Details,
+  ErrorMessage,
+  ErrorSummary,
+  ExitThisPage,
+  FileUpload,
+  InsetText,
+  Pagination,
+  Panel,
+  PasswordInput,
+  Radios,
+  SkipLink,
+  SummaryList,
+  Tag,
+  TaskList,
+  WarningText
+} from '@/components'
 
 export const Components: React.FC = () => {
   const [alertVisible, setAlertVisible] = useState(false)
+  const [checkboxValues, setCheckboxValues] = useState<string[]>([])
+  const [radioValue, setRadioValue] = useState('')
+  const [dateValue, setDateValue] = useState<{ day?: string; month?: string; year?: string }>({ day: '', month: '', year: '' })
+  const [passwordValue, setPasswordValue] = useState('')
+  const [fileValue, setFileValue] = useState<File | null>(null)
 
   const accordionItems = [
     {
@@ -161,6 +189,222 @@ export const Components: React.FC = () => {
               updates with proper accessibility announcements.
             </Alert>
           )}
+        </div>
+      </div>
+
+      <div className="govuk-grid-row govuk-!-margin-top-6">
+        <div className="govuk-grid-column-full">
+          <h2 className="govuk-heading-l">Navigation Components</h2>
+          
+          <h3 className="govuk-heading-m">Back Link</h3>
+          <BackLink to="/">Back to home</BackLink>
+          
+          <h3 className="govuk-heading-m govuk-!-margin-top-6">Breadcrumbs</h3>
+          <Breadcrumbs 
+            items={[
+              { text: 'Home', to: '/' },
+              { text: 'Components', to: '/components' },
+              { text: 'Current page' }
+            ]} 
+          />
+          
+          <h3 className="govuk-heading-m govuk-!-margin-top-6">Skip Link</h3>
+          <SkipLink href="#main-content">Skip to main content</SkipLink>
+        </div>
+      </div>
+
+      <div className="govuk-grid-row govuk-!-margin-top-6">
+        <div className="govuk-grid-column-full">
+          <h2 className="govuk-heading-l">Form Components</h2>
+          
+          <h3 className="govuk-heading-m">Checkboxes</h3>
+          <Checkboxes
+            name="interests"
+            items={[
+              { value: 'accessibility', text: 'Accessibility', hint: 'Making websites usable for everyone' },
+              { value: 'performance', text: 'Performance', hint: 'Optimizing website speed' },
+              { value: 'design', text: 'Design', hint: 'Creating beautiful user interfaces' }
+            ]}
+            value={checkboxValues}
+            onChange={setCheckboxValues}
+            fieldset={{ legend: 'What are you interested in?' }}
+            hint="Select all that apply"
+          />
+          
+          <h3 className="govuk-heading-m govuk-!-margin-top-6">Radio Buttons</h3>
+          <Radios
+            name="experience"
+            items={[
+              { value: 'beginner', text: 'Beginner', hint: 'New to web development' },
+              { value: 'intermediate', text: 'Intermediate', hint: 'Some experience with web development' },
+              { value: 'advanced', text: 'Advanced', hint: 'Experienced web developer' }
+            ]}
+            value={radioValue}
+            onChange={setRadioValue}
+            fieldset={{ legend: 'What is your experience level?' }}
+          />
+          
+          <h3 className="govuk-heading-m govuk-!-margin-top-6">Date Input</h3>
+          <DateInput
+            name="birth-date"
+            value={dateValue}
+            onChange={setDateValue}
+            fieldset={{ legend: 'What is your date of birth?' }}
+            hint="For example, 27 3 2007"
+          />
+          
+          <h3 className="govuk-heading-m govuk-!-margin-top-6">Password Input</h3>
+          <PasswordInput
+            name="password"
+            value={passwordValue}
+            onChange={setPasswordValue}
+            label="Password"
+            hint="Must be at least 8 characters"
+          />
+          
+          <h3 className="govuk-heading-m govuk-!-margin-top-6">File Upload</h3>
+          <FileUpload
+            name="document"
+            label="Upload a document"
+            hint="PDF, DOC or DOCX files only"
+            accept=".pdf,.doc,.docx"
+            value={fileValue}
+            onChange={setFileValue}
+          />
+        </div>
+      </div>
+
+      <div className="govuk-grid-row govuk-!-margin-top-6">
+        <div className="govuk-grid-column-full">
+          <h2 className="govuk-heading-l">Content Components</h2>
+          
+          <h3 className="govuk-heading-m">Details</h3>
+          <Details summary="How do I make my website accessible?">
+            <p>Start by following the Web Content Accessibility Guidelines (WCAG) 2.1. Use semantic HTML, provide alternative text for images, ensure good color contrast, and test with assistive technologies.</p>
+          </Details>
+          
+          <h3 className="govuk-heading-m govuk-!-margin-top-6">Inset Text</h3>
+          <InsetText>
+            <p>This is important information that stands out from the main content.</p>
+          </InsetText>
+          
+          <h3 className="govuk-heading-m govuk-!-margin-top-6">Warning Text</h3>
+          <WarningText>
+            You can be fined up to £5,000 if you do not register.
+          </WarningText>
+          
+          <h3 className="govuk-heading-m govuk-!-margin-top-6">Tags</h3>
+          <div className="govuk-button-group">
+            <Tag>Default</Tag>
+            <Tag variant="success">Success</Tag>
+            <Tag variant="warning">Warning</Tag>
+            <Tag variant="error">Error</Tag>
+          </div>
+          
+          <h3 className="govuk-heading-m govuk-!-margin-top-6">Panel</h3>
+          <Panel title="Application complete">
+            Your reference number is HDJ2123F
+          </Panel>
+        </div>
+      </div>
+
+      <div className="govuk-grid-row govuk-!-margin-top-6">
+        <div className="govuk-grid-column-full">
+          <h2 className="govuk-heading-l">Data Components</h2>
+          
+          <h3 className="govuk-heading-m">Summary List</h3>
+          <SummaryList
+            rows={[
+              {
+                key: 'Name',
+                value: 'Sarah Philips',
+                actions: {
+                  items: [
+                    { text: 'Change', href: '#', visuallyHiddenText: 'name' }
+                  ]
+                }
+              },
+              {
+                key: 'Date of birth',
+                value: '5 January 1978'
+              },
+              {
+                key: 'Address',
+                value: '72 Guild Street, London, SE23 6FH',
+                actions: {
+                  items: [
+                    { text: 'Change', href: '#', visuallyHiddenText: 'address' }
+                  ]
+                }
+              }
+            ]}
+          />
+          
+          <h3 className="govuk-heading-m govuk-!-margin-top-6">Task List</h3>
+          <TaskList
+            items={[
+              { name: 'Check your personal details', status: 'completed' },
+              { name: 'Check your application', status: 'in-progress' },
+              { name: 'Submit your application', status: 'not-started' }
+            ]}
+          />
+          
+          <h3 className="govuk-heading-m govuk-!-margin-top-6">Pagination</h3>
+          <Pagination
+            previous={{ href: '#', text: 'Previous page' }}
+            next={{ href: '#', text: 'Next page' }}
+            items={[
+              { number: 1, href: '#' },
+              { number: 2, current: true },
+              { number: 3, href: '#' },
+              { ellipsis: true },
+              { number: 10, href: '#' }
+            ]}
+          />
+        </div>
+      </div>
+
+      <div className="govuk-grid-row govuk-!-margin-top-6">
+        <div className="govuk-grid-column-full">
+          <h2 className="govuk-heading-l">Error Handling</h2>
+          
+          <h3 className="govuk-heading-m">Error Summary</h3>
+          <ErrorSummary
+            title="There is a problem"
+            description="You need to fix the errors on this page before continuing."
+            errorList={[
+              { text: 'Enter your full name', href: '#name' },
+              { text: 'Enter your email address', href: '#email' }
+            ]}
+          />
+          
+          <h3 className="govuk-heading-m govuk-!-margin-top-6">Error Message</h3>
+          <ErrorMessage>
+            Enter your full name
+          </ErrorMessage>
+        </div>
+      </div>
+
+      <div className="govuk-grid-row govuk-!-margin-top-6">
+        <div className="govuk-grid-column-full">
+          <h2 className="govuk-heading-l">Special Components</h2>
+          
+          <h3 className="govuk-heading-m">Character Count</h3>
+          <CharacterCount maxLength={100} threshold={0.9}>
+            <textarea 
+              className="govuk-textarea" 
+              name="description"
+              rows={5}
+              placeholder="Enter your description here..."
+            />
+          </CharacterCount>
+          
+          <h3 className="govuk-heading-m govuk-!-margin-top-6">Cookie Banner</h3>
+          <CookieBanner />
+          
+          <h3 className="govuk-heading-m govuk-!-margin-top-6">Exit This Page</h3>
+          <p className="govuk-body">Press the Escape key to show the exit this page button.</p>
+          <ExitThisPage />
         </div>
       </div>
 
