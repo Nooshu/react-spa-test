@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { 
-  MojCard, 
   MojBanner, 
   MojSearch, 
   MojSideNavigation, 
@@ -10,8 +9,7 @@ import {
 export const MojComponents: React.FC = () => {
   const [searchValue, setSearchValue] = useState('')
   const sideNavItems = [
-    { text: 'MoJ Cards', href: '#moj-cards', active: true },
-    { text: 'MoJ Banners', href: '#moj-banners' },
+    { text: 'MoJ Banners', href: '#moj-banners', active: true },
     { text: 'MoJ Search', href: '#moj-search' },
     { text: 'MoJ Side Navigation', href: '#moj-side-nav' },
     { text: 'MoJ Multi-file Upload', href: '#moj-file-upload' }
@@ -54,27 +52,6 @@ export const MojComponents: React.FC = () => {
             </p>
           </MojBanner>
 
-          <section id="moj-cards" className="govuk-!-margin-top-6">
-            <h2 className="govuk-heading-l">MoJ Cards</h2>
-            <div className="govuk-grid-row">
-              <div className="govuk-grid-column-one-half">
-                <MojCard
-                  title="Standard MoJ Card"
-                  description="A basic MoJ card component with title and description."
-                  meta="Last updated 2 hours ago"
-                />
-              </div>
-              <div className="govuk-grid-column-one-half">
-                <MojCard
-                  title="Linked MoJ Card"
-                  description="A MoJ card that acts as a link to another page."
-                  href="/components"
-                  meta="Click to navigate"
-                />
-              </div>
-            </div>
-          </section>
-
           <section id="moj-banners" className="govuk-!-margin-top-6">
             <h2 className="govuk-heading-l">MoJ Banners</h2>
             <div className="govuk-grid-row">
@@ -99,7 +76,8 @@ export const MojComponents: React.FC = () => {
             <div className="govuk-grid-row">
               <div className="govuk-grid-column-two-thirds">
                 <MojSearch
-                  label="Search for content"
+                  label="Find a person"
+                  hint="You can search by name, date of birth or National Insurance number"
                   placeholder="Enter search terms..."
                   value={searchValue}
                   onChange={setSearchValue}
@@ -129,22 +107,22 @@ export const MojComponents: React.FC = () => {
             <h2 className="govuk-heading-l">Integration Benefits</h2>
             <div className="govuk-grid-row">
               <div className="govuk-grid-column-one-third">
-                <MojCard
-                  title="Accessibility First"
-                  description="All MoJ components meet WCAG 2.1 AA standards and are tested with assistive technologies."
-                />
+                <div className="govuk-inset-text">
+                  <h3 className="govuk-heading-s">Accessibility First</h3>
+                  <p>All MoJ components meet WCAG 2.1 AA standards and are tested with assistive technologies.</p>
+                </div>
               </div>
               <div className="govuk-grid-column-one-third">
-                <MojCard
-                  title="Consistent Design"
-                  description="Maintains visual consistency with MoJ Design System while providing React functionality."
-                />
+                <div className="govuk-inset-text">
+                  <h3 className="govuk-heading-s">Consistent Design</h3>
+                  <p>Maintains visual consistency with MoJ Design System while providing React functionality.</p>
+                </div>
               </div>
               <div className="govuk-grid-column-one-third">
-                <MojCard
-                  title="Performance Optimized"
-                  description="Components are built with performance in mind, using React best practices and lazy loading."
-                />
+                <div className="govuk-inset-text">
+                  <h3 className="govuk-heading-s">Performance Optimized</h3>
+                  <p>Components are built with performance in mind, using React best practices and lazy loading.</p>
+                </div>
               </div>
             </div>
           </section>

@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import { MojComponentWrapper } from './MojComponentWrapper'
 
 interface MojSearchProps {
-  placeholder?: string
   label?: string
+  hint?: string
+  placeholder?: string
   value?: string
   onChange?: (value: string) => void
   onSubmit?: (value: string) => void
@@ -13,8 +14,9 @@ interface MojSearchProps {
 }
 
 export const MojSearch: React.FC<MojSearchProps> = ({
-  placeholder = 'Search',
   label = 'Search',
+  hint,
+  placeholder = 'Enter search terms...',
   value = '',
   onChange,
   onSubmit,
@@ -41,30 +43,33 @@ export const MojSearch: React.FC<MojSearchProps> = ({
   return (
     <MojComponentWrapper className={searchClasses}>
       <form className="moj-search__form" onSubmit={handleSubmit}>
-        <div className="moj-search__form-group">
-          <label className="moj-search__label" htmlFor={inputId}>
+        <div className="govuk-form-group">
+          <label className="govuk-label" htmlFor={inputId}>
             {label}
           </label>
-          <div className="moj-search__input-wrapper">
-            <input
-              id={inputId}
-              name={name}
-              className="moj-search__input"
-              type="search"
-              placeholder={placeholder}
-              value={searchValue}
-              onChange={handleInputChange}
-              aria-describedby={`${inputId}-hint`}
-            />
-            <button
-              type="submit"
-              className="moj-search__button"
-              aria-label="Search"
-            >
-              <span className="moj-search__button-text">Search</span>
-            </button>
-          </div>
+          {hint && (
+            <div id={`${inputId}-hint`} className="govuk-hint">
+              {hint}
+            </div>
+          )}
+          <input
+            id={inputId}
+            name={name}
+            className="govuk-input moj-search__input"
+            type="search"
+            placeholder={placeholder}
+            value={searchValue}
+            onChange={handleInputChange}
+            aria-describedby={hint ? `${inputId}-hint` : undefined}
+          />
         </div>
+        <button
+          type="submit"
+          className="govuk-button moj-search__button"
+          data-module="govuk-button"
+        >
+          Search
+        </button>
       </form>
     </MojComponentWrapper>
   )

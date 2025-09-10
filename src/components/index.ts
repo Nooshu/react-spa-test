@@ -47,7 +47,6 @@ export { WarningText } from './WarningText'
 
 // MoJ Frontend components
 export { MojComponentWrapper } from './MojComponentWrapper'
-export { MojCard } from './MojCard'
 export { MojBanner } from './MojBanner'
 export { MojSearch } from './MojSearch'
 export { MojSideNavigation } from './MojSideNavigation'

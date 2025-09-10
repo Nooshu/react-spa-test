@@ -8,6 +8,237 @@
 // Import MoJ Frontend
 @import '@ministryofjustice/frontend/moj/all';
 
+// Ensure MoJ components have proper styling
+
+.moj-banner {
+  border: 5px solid;
+  border-radius: 4px;
+  padding: 20px;
+  margin-bottom: 20px;
+  
+  &--information {
+    border-color: #1d70b8;
+    background-color: #f3f2f1;
+  }
+  
+  &--success {
+    border-color: #00703c;
+    background-color: #f3f2f1;
+  }
+  
+  &--warning {
+    border-color: #f47738;
+    background-color: #f3f2f1;
+  }
+  
+  &--error {
+    border-color: #d4351c;
+    background-color: #f3f2f1;
+  }
+  
+  &__message {
+    position: relative;
+  }
+  
+  &__title {
+    font-size: 19px;
+    font-weight: bold;
+    margin: 0 0 10px 0;
+    color: #0b0c0c;
+  }
+  
+  &__content {
+    font-size: 16px;
+    color: #0b0c0c;
+  }
+  
+  &__dismiss {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #0b0c0c;
+    
+    &:hover {
+      color: #626a6e;
+    }
+  }
+}
+
+.moj-search {
+  margin-bottom: 20px;
+  
+  &__form {
+    margin: 0;
+  }
+  
+  &__input {
+    // Additional styling for search input if needed
+    // The GOV.UK input styles will handle the base styling
+  }
+  
+  &__button {
+    // Additional styling for search button if needed
+    // The GOV.UK button styles will handle the base styling
+  }
+}
+
+.moj-multi-file-upload {
+  margin-bottom: 20px;
+  
+  &__form-group {
+    margin-bottom: 0;
+  }
+  
+  &__label {
+    display: block;
+    font-size: 19px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #0b0c0c;
+  }
+  
+  &__hint {
+    font-size: 16px;
+    color: #626a6e;
+    margin-bottom: 15px;
+  }
+  
+  &__error {
+    font-size: 16px;
+    color: #d4351c;
+    margin-bottom: 15px;
+    font-weight: bold;
+  }
+  
+  &__drop-zone {
+    border: 2px dashed #b1b4b6;
+    border-radius: 4px;
+    padding: 40px 20px;
+    text-align: center;
+    background-color: #f8f8f8;
+    margin-bottom: 20px;
+    transition: all 0.2s ease;
+    
+    &--active {
+      border-color: #0b0c0c;
+      background-color: #f3f2f1;
+    }
+    
+    &--error {
+      border-color: #d4351c;
+      background-color: #fef7f7;
+    }
+  }
+  
+  &__drop-zone-content {
+    margin: 0;
+  }
+  
+  &__drop-zone-text {
+    font-size: 16px;
+    margin: 0 0 10px 0;
+    color: #0b0c0c;
+  }
+  
+  &__drop-zone-hint {
+    font-size: 14px;
+    margin: 0;
+    color: #626a6e;
+  }
+  
+  &__button {
+    background: none;
+    border: none;
+    color: #1d70b8;
+    text-decoration: underline;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 0;
+    
+    &:hover {
+      color: #003078;
+    }
+    
+    &:focus {
+      outline: 3px solid #ffdd00;
+      outline-offset: 2px;
+    }
+  }
+  
+  &__input {
+    display: none;
+  }
+  
+  &__file-list {
+    margin-top: 20px;
+  }
+  
+  &__file-list-title {
+    font-size: 19px;
+    font-weight: bold;
+    margin: 0 0 15px 0;
+    color: #0b0c0c;
+  }
+  
+  &__file-items {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  &__file-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border: 1px solid #b1b4b6;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    background-color: #ffffff;
+  }
+  
+  &__file-info {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  &__file-name {
+    font-size: 16px;
+    font-weight: bold;
+    color: #0b0c0c;
+    margin-bottom: 5px;
+  }
+  
+  &__file-size {
+    font-size: 14px;
+    color: #626a6e;
+  }
+  
+  &__remove-button {
+    padding: 8px 16px;
+    background-color: #d4351c;
+    color: #ffffff;
+    border: 2px solid #d4351c;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 4px;
+    
+    &:hover {
+      background-color: #b31d1a;
+      border-color: #b31d1a;
+    }
+    
+    &:focus {
+      outline: 3px solid #ffdd00;
+      outline-offset: 2px;
+    }
+  }
+}
+
 // Ensure body margin is reset (GOV.UK Frontend should handle this, but adding explicit reset)
 body {
   margin: 0;
