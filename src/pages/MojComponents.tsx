@@ -1,18 +1,61 @@
 import React, { useState } from 'react'
 import { 
+  MojAddAnother,
+  MojBadge,
   MojBanner, 
+  MojButtonMenu,
+  MojDatePicker,
+  MojFilter,
+  MojIdentityBar,
+  MojInterruptionCard,
+  MojMessages,
+  MojMultiFileUpload,
+  MojMultiSelect,
+  MojNotificationBadge,
+  MojOrganisationSwitcher,
+  MojPageHeaderActions,
+  MojPrimaryNavigation,
+  MojScrollablePane,
   MojSearch, 
-  MojSideNavigation, 
-  MojMultiFileUpload 
+  MojSideNavigation,
+  MojSortableTable,
+  MojSubNavigation,
+  MojTicketPanel,
+  MojTimeline
 } from '@/components'
 
 export const MojComponents: React.FC = () => {
   const [searchValue, setSearchValue] = useState('')
+  const [addAnotherItems, setAddAnotherItems] = useState([
+    { id: '1', content: <p>First item content</p> },
+    { id: '2', content: <p>Second item content</p> }
+  ])
+  const [, setSelectedFilters] = useState<Record<string, string[]>>({})
+  const [selectedMultiSelect, setSelectedMultiSelect] = useState<string[]>([])
+  const [currentOrg, setCurrentOrg] = useState({ id: '1', name: 'HM Prison Service', type: 'Prison' as string })
+  
   const sideNavItems = [
     { text: 'MoJ Banners', href: '#moj-banners', active: true },
+    { text: 'MoJ Badges', href: '#moj-badges' },
+    { text: 'MoJ Button Menu', href: '#moj-button-menu' },
+    { text: 'MoJ Date Picker', href: '#moj-date-picker' },
+    { text: 'MoJ Filter', href: '#moj-filter' },
+    { text: 'MoJ Identity Bar', href: '#moj-identity-bar' },
+    { text: 'MoJ Interruption Card', href: '#moj-interruption-card' },
+    { text: 'MoJ Messages', href: '#moj-messages' },
+    { text: 'MoJ Multi-file Upload', href: '#moj-file-upload' },
+    { text: 'MoJ Multi Select', href: '#moj-multi-select' },
+    { text: 'MoJ Notification Badge', href: '#moj-notification-badge' },
+    { text: 'MoJ Organisation Switcher', href: '#moj-organisation-switcher' },
+    { text: 'MoJ Page Header Actions', href: '#moj-page-header-actions' },
+    { text: 'MoJ Primary Navigation', href: '#moj-primary-navigation' },
+    { text: 'MoJ Scrollable Pane', href: '#moj-scrollable-pane' },
     { text: 'MoJ Search', href: '#moj-search' },
     { text: 'MoJ Side Navigation', href: '#moj-side-nav' },
-    { text: 'MoJ Multi-file Upload', href: '#moj-file-upload' }
+    { text: 'MoJ Sortable Table', href: '#moj-sortable-table' },
+    { text: 'MoJ Sub Navigation', href: '#moj-sub-navigation' },
+    { text: 'MoJ Ticket Panel', href: '#moj-ticket-panel' },
+    { text: 'MoJ Timeline', href: '#moj-timeline' }
   ]
 
   const handleSearch = (value: string) => {
@@ -22,6 +65,48 @@ export const MojComponents: React.FC = () => {
   const handleFilesChange = (files: any[]) => {
     console.log('Files uploaded:', files.length)
   }
+
+  const handleAddAnother = () => {
+    const newId = (addAnotherItems.length + 1).toString()
+    setAddAnotherItems([...addAnotherItems, { id: newId, content: <p>New item {newId} content</p> }])
+  }
+
+  const handleRemoveItem = (id: string) => {
+    setAddAnotherItems(addAnotherItems.filter(item => item.id !== id))
+  }
+
+  const organisations = [
+    { id: '1', name: 'HM Prison Service', type: 'Prison' as string },
+    { id: '2', name: 'Probation Service', type: 'Probation' as string },
+    { id: '3', name: 'Courts Service', type: 'Courts' as string }
+  ]
+
+  const messages = [
+    { id: '1', date: '16 March 2019', sender: 'Person A', timestamp: '10:50am', content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', type: 'received' as const },
+    { id: '2', date: '17 March 2019', sender: 'Person B', timestamp: '10:51am', content: 'Nullam vestibulum lorem vulputate velit euismod luctus.', type: 'received' as const },
+    { id: '3', date: '19 March 2019', sender: 'Person A', timestamp: '10:53am', content: 'Fusce et vulputate justo. Integer suscipit felis non urna lobortis, vel finibus sem tristique.', type: 'sent' as const },
+    { id: '4', date: '19 March 2019', sender: 'Person A', timestamp: '10:55am', content: 'Mauris tincidunt feugiat orci et convallis. Nam efficitur gravida justo non lobortis. Aliquam velit ante, lobortis eu venenatis sit amet, semper sit amet justo.', type: 'sent' as const },
+    { id: '5', date: '21 March 2019', sender: 'Person B', timestamp: '11:56am', content: 'Proin dapibus, nisl id ultricies ultricies, erat magna pulvinar risus, sit amet commodo nunc purus eu nulla. Aliquam erat volutpat. Vestibulum in ante interdum, elementum arcu vel, viverra nibh. Etiam ultrices urna at suscipit sollicitudin. Nulla non lectus magna. Curabitur vel vestibulum lorem. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.', type: 'received' as const }
+  ]
+
+  const timelineEvents = [
+    { id: '1', title: 'Case Created', description: 'Initial case file created', timestamp: '2024-01-10', status: 'completed' as const },
+    { id: '2', title: 'First Review', description: 'Initial assessment completed', timestamp: '2024-01-12', status: 'completed' as const },
+    { id: '3', title: 'Pending Approval', description: 'Awaiting final approval', timestamp: '2024-01-15', status: 'in-progress' as const },
+    { id: '4', title: 'Final Decision', description: 'Decision pending', timestamp: '2024-01-20', status: 'pending' as const }
+  ]
+
+  const tableData = [
+    { name: 'John Smith', age: 35, status: 'Active' },
+    { name: 'Sarah Jones', age: 28, status: 'Pending' },
+    { name: 'Mike Wilson', age: 42, status: 'Completed' }
+  ]
+
+  const tableColumns = [
+    { key: 'name', label: 'Name', sortable: true },
+    { key: 'age', label: 'Age', sortable: true },
+    { key: 'status', label: 'Status', sortable: true }
+  ]
 
   return (
     <>
@@ -53,7 +138,7 @@ export const MojComponents: React.FC = () => {
           </MojBanner>
 
           <section id="moj-banners" className="govuk-!-margin-top-6">
-            <h2 className="govuk-heading-l">MoJ Banners</h2>
+            <h2 className="govuk-heading-l">MoJ Banners (Alert)</h2>
             <div className="govuk-grid-row">
               <div className="govuk-grid-column-full">
                 <MojBanner type="success" title="Success Banner">
@@ -67,6 +152,249 @@ export const MojComponents: React.FC = () => {
                 <MojBanner type="error" title="Error Banner">
                   <p>This is an error banner indicating a problem that needs attention.</p>
                 </MojBanner>
+              </div>
+            </div>
+          </section>
+
+          <section id="moj-badges" className="govuk-!-margin-top-6">
+            <h2 className="govuk-heading-l">MoJ Badges</h2>
+            <div className="govuk-grid-row">
+              <div className="govuk-grid-column-full">
+                <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                  <MojBadge text="Default" type="default" />
+                  <MojBadge text="Urgent" type="urgent" />
+                  <MojBadge text="Success" type="success" />
+                  <MojBadge text="Warning" type="warning" />
+                  <MojBadge text="Error" type="error" />
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="moj-button-menu" className="govuk-!-margin-top-6">
+            <h2 className="govuk-heading-l">MoJ Button Menu</h2>
+            <div className="govuk-grid-row">
+              <div className="govuk-grid-column-one-third">
+                <MojButtonMenu
+                  title="Actions"
+                  items={[
+                    { text: 'Edit Case', href: '/edit' },
+                    { text: 'View History', onClick: () => console.log('View history') },
+                    { text: 'Export Data', onClick: () => console.log('Export data') }
+                  ]}
+                />
+              </div>
+            </div>
+          </section>
+
+          <section id="moj-date-picker" className="govuk-!-margin-top-6">
+            <h2 className="govuk-heading-l">MoJ Date Picker</h2>
+            <div className="govuk-grid-row">
+              <div className="govuk-grid-column-one-third">
+                <MojDatePicker
+                  label="Select date"
+                  hint="Choose a date for the appointment"
+                  onChange={(value) => console.log('Date selected:', value)}
+                />
+              </div>
+            </div>
+          </section>
+
+          <section id="moj-filter" className="govuk-!-margin-top-6">
+            <h2 className="govuk-heading-l">MoJ Filter</h2>
+            <div className="govuk-grid-row">
+              <div className="govuk-grid-column-one-half">
+                <MojFilter
+                  title="Filter Cases"
+                  filters={[
+                    {
+                      label: 'Status',
+                      name: 'status',
+                      type: 'checkbox',
+                      options: [
+                        { value: 'active', text: 'Active' },
+                        { value: 'pending', text: 'Pending' },
+                        { value: 'completed', text: 'Completed' }
+                      ]
+                    },
+                    {
+                      label: 'Priority',
+                      name: 'priority',
+                      type: 'radio',
+                      options: [
+                        { value: 'high', text: 'High' },
+                        { value: 'medium', text: 'Medium' },
+                        { value: 'low', text: 'Low' }
+                      ]
+                    }
+                  ]}
+                  onFilterChange={setSelectedFilters}
+                />
+              </div>
+            </div>
+          </section>
+
+          <section id="moj-identity-bar" className="govuk-!-margin-top-6">
+            <h2 className="govuk-heading-l">MoJ Identity Bar</h2>
+            <div className="govuk-grid-row">
+              <div className="govuk-grid-column-full">
+                <MojIdentityBar
+                  title="Case #12345"
+                  subtitle="John Smith"
+                  actions={[
+                    { text: 'Edit Case', type: 'primary', onClick: () => console.log('Edit case') },
+                    { text: 'View History', type: 'secondary', onClick: () => console.log('View history') }
+                  ]}
+                />
+              </div>
+            </div>
+          </section>
+
+          <section id="moj-interruption-card" className="govuk-!-margin-top-6">
+            <h2 className="govuk-heading-l">MoJ Interruption Card</h2>
+            <div className="govuk-grid-row">
+              <div className="govuk-grid-column-two-thirds">
+                <MojInterruptionCard
+                  title="Important Notice"
+                  actions={[
+                    { text: 'Continue', type: 'primary', onClick: () => console.log('Continue') },
+                    { text: 'Cancel', type: 'secondary', onClick: () => console.log('Cancel') }
+                  ]}
+                >
+                  <p>This is an important interruption card that requires user attention before proceeding.</p>
+                  <p>Please review the information carefully before making your decision.</p>
+                </MojInterruptionCard>
+              </div>
+            </div>
+          </section>
+
+          <section id="moj-messages" className="govuk-!-margin-top-6">
+            <h2 className="govuk-heading-l">MoJ Messages</h2>
+            <div className="govuk-grid-row">
+              <div className="govuk-grid-column-two-thirds">
+                <MojMessages messages={messages} />
+              </div>
+            </div>
+          </section>
+
+          <section id="moj-file-upload" className="govuk-!-margin-top-6">
+            <h2 className="govuk-heading-l">MoJ Multi-file Upload</h2>
+            <div className="govuk-grid-row">
+              <div className="govuk-grid-column-two-thirds">
+                <MojMultiFileUpload
+                  label="Upload documents"
+                  hint="Upload multiple files at once. Supported formats: PDF, DOC, DOCX, TXT"
+                  accept=".pdf,.doc,.docx,.txt"
+                  maxFiles={5}
+                  maxFileSize={5 * 1024 * 1024} // 5MB
+                  onFilesChange={handleFilesChange}
+                />
+              </div>
+            </div>
+          </section>
+
+          <section id="moj-multi-select" className="govuk-!-margin-top-6">
+            <h2 className="govuk-heading-l">MoJ Multi Select</h2>
+            <div className="govuk-grid-row">
+              <div className="govuk-grid-column-one-half">
+                <MojMultiSelect
+                  label="Select categories"
+                  hint="Choose one or more categories"
+                  options={[
+                    { value: 'category1', text: 'Category 1' },
+                    { value: 'category2', text: 'Category 2' },
+                    { value: 'category3', text: 'Category 3' },
+                    { value: 'category4', text: 'Category 4' }
+                  ]}
+                  selectedValues={selectedMultiSelect}
+                  onChange={setSelectedMultiSelect}
+                />
+              </div>
+            </div>
+          </section>
+
+          <section id="moj-notification-badge" className="govuk-!-margin-top-6">
+            <h2 className="govuk-heading-l">MoJ Notification Badge</h2>
+            <div className="govuk-grid-row">
+              <div className="govuk-grid-column-full">
+                <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
+                  <MojNotificationBadge count={10} />
+                  <MojNotificationBadge count={5} />
+                  <MojNotificationBadge count={99} />
+                  <MojNotificationBadge count={150} maxCount={99} />
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="moj-organisation-switcher" className="govuk-!-margin-top-6">
+            <h2 className="govuk-heading-l">MoJ Organisation Switcher</h2>
+            <div className="govuk-grid-row">
+              <div className="govuk-grid-column-one-third">
+                <MojOrganisationSwitcher
+                  organisations={organisations}
+                  currentOrganisation={currentOrg}
+                  onOrganisationChange={setCurrentOrg}
+                />
+              </div>
+            </div>
+          </section>
+
+          <section id="moj-page-header-actions" className="govuk-!-margin-top-6">
+            <h2 className="govuk-heading-l">MoJ Page Header Actions</h2>
+            <div className="govuk-grid-row">
+              <div className="govuk-grid-column-full">
+                <MojPageHeaderActions
+                  actions={[
+                    { text: 'Save Changes', type: 'primary', onClick: () => console.log('Save') },
+                    { text: 'Cancel', type: 'secondary', onClick: () => console.log('Cancel') },
+                    { text: 'Delete', type: 'destructive', onClick: () => console.log('Delete') }
+                  ]}
+                />
+              </div>
+            </div>
+          </section>
+
+          <section id="moj-primary-navigation" className="govuk-!-margin-top-6">
+            <h2 className="govuk-heading-l">MoJ Primary Navigation</h2>
+            <div className="govuk-grid-row">
+              <div className="govuk-grid-column-full">
+                <MojPrimaryNavigation
+                  items={[
+                    { text: 'Dashboard', href: '/dashboard', active: true },
+                    { text: 'Cases', href: '/cases' },
+                    { 
+                      text: 'Reports', 
+                      children: [
+                        { text: 'Monthly Report', href: '/reports/monthly' },
+                        { text: 'Annual Report', href: '/reports/annual' }
+                      ]
+                    },
+                    { text: 'Settings', href: '/settings' }
+                  ]}
+                />
+              </div>
+            </div>
+          </section>
+
+          <section id="moj-scrollable-pane" className="govuk-!-margin-top-6">
+            <h2 className="govuk-heading-l">MoJ Scrollable Pane</h2>
+            <div className="govuk-grid-row">
+              <div className="govuk-grid-column-two-thirds">
+                <MojScrollablePane height="200px">
+                  <p>This is a scrollable pane with limited height.</p>
+                  <p>Content that exceeds the height will be scrollable.</p>
+                  <p>Line 1</p>
+                  <p>Line 2</p>
+                  <p>Line 3</p>
+                  <p>Line 4</p>
+                  <p>Line 5</p>
+                  <p>Line 6</p>
+                  <p>Line 7</p>
+                  <p>Line 8</p>
+                  <p>Line 9</p>
+                  <p>Line 10</p>
+                </MojScrollablePane>
               </div>
             </div>
           </section>
@@ -87,17 +415,83 @@ export const MojComponents: React.FC = () => {
             </div>
           </section>
 
-          <section id="moj-file-upload" className="govuk-!-margin-top-6">
-            <h2 className="govuk-heading-l">MoJ Multi-file Upload</h2>
+          <section id="moj-side-nav" className="govuk-!-margin-top-6">
+            <h2 className="govuk-heading-l">MoJ Side Navigation</h2>
+            <div className="govuk-grid-row">
+              <div className="govuk-grid-column-one-quarter">
+                <MojSideNavigation items={sideNavItems} />
+              </div>
+            </div>
+          </section>
+
+          <section id="moj-sortable-table" className="govuk-!-margin-top-6">
+            <h2 className="govuk-heading-l">MoJ Sortable Table</h2>
+            <div className="govuk-grid-row">
+              <div className="govuk-grid-column-full">
+                <MojSortableTable
+                  caption="Case Management Data"
+                  columns={tableColumns}
+                  rows={tableData}
+                  onSort={(column, direction) => console.log('Sort:', column, direction)}
+                />
+              </div>
+            </div>
+          </section>
+
+          <section id="moj-sub-navigation" className="govuk-!-margin-top-6">
+            <h2 className="govuk-heading-l">MoJ Sub Navigation</h2>
+            <div className="govuk-grid-row">
+              <div className="govuk-grid-column-full">
+                <MojSubNavigation
+                  items={[
+                    { text: 'Overview', href: '/overview', active: true },
+                    { text: 'Details', href: '/details' },
+                    { text: 'History', href: '/history' },
+                    { text: 'Documents', href: '/documents' }
+                  ]}
+                />
+              </div>
+            </div>
+          </section>
+
+          <section id="moj-ticket-panel" className="govuk-!-margin-top-6">
+            <h2 className="govuk-heading-l">MoJ Ticket Panel</h2>
+            <div className="govuk-grid-row">
+              <div className="govuk-grid-column-one-half">
+                <MojTicketPanel
+                  title="Case Review"
+                  actions={[
+                    { text: 'Approve', type: 'primary', onClick: () => console.log('Approve') },
+                    { text: 'Reject', type: 'destructive', onClick: () => console.log('Reject') }
+                  ]}
+                >
+                  <p>This case requires review before proceeding to the next stage.</p>
+                  <p>Please ensure all documentation is complete and accurate.</p>
+                </MojTicketPanel>
+              </div>
+            </div>
+          </section>
+
+          <section id="moj-timeline" className="govuk-!-margin-top-6">
+            <h2 className="govuk-heading-l">MoJ Timeline</h2>
             <div className="govuk-grid-row">
               <div className="govuk-grid-column-two-thirds">
-                <MojMultiFileUpload
-                  label="Upload documents"
-                  hint="Upload multiple files at once. Supported formats: PDF, DOC, DOCX, TXT"
-                  accept=".pdf,.doc,.docx,.txt"
-                  maxFiles={5}
-                  maxFileSize={5 * 1024 * 1024} // 5MB
-                  onFilesChange={handleFilesChange}
+                <MojTimeline events={timelineEvents} />
+              </div>
+            </div>
+          </section>
+
+          <section id="moj-add-another" className="govuk-!-margin-top-6">
+            <h2 className="govuk-heading-l">MoJ Add Another</h2>
+            <div className="govuk-grid-row">
+              <div className="govuk-grid-column-two-thirds">
+                <MojAddAnother
+                  title="Additional Information"
+                  items={addAnotherItems}
+                  onAdd={handleAddAnother}
+                  onRemove={handleRemoveItem}
+                  addButtonText="Add another item"
+                  removeButtonText="Remove"
                 />
               </div>
             </div>
