@@ -8,6 +8,137 @@
 // Import MoJ Frontend
 @import '@ministryofjustice/frontend/moj/all';
 
+// Custom GOV.UK Frontend component fixes
+.govuk-accordion {
+  // Show all sections button
+  .govuk-accordion__controls {
+    text-align: right;
+    margin-bottom: 20px;
+  }
+  
+  .govuk-accordion__show-all {
+    background: none;
+    border: none;
+    color: #1d70b8;
+    cursor: pointer;
+    font-family: "GDS Transport", arial, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.25;
+    padding: 0;
+    text-decoration: underline;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    
+    &:hover {
+      color: #003078;
+    }
+    
+    &:focus {
+      outline: 3px solid #fd0;
+      outline-offset: 0;
+      background-color: #fd0;
+      color: #0b0c0c;
+    }
+  }
+  
+  .govuk-accordion__show-all-icon {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #1d70b8;
+    transition: transform 0.2s ease-in-out;
+    
+    .govuk-accordion__show-all[aria-expanded="true"] & {
+      transform: rotate(180deg);
+    }
+  }
+  
+  // Ensure accordion sections are properly styled
+  .govuk-accordion__section {
+    border-top: 1px solid #b1b4b6;
+    
+    &:first-child {
+      border-top: none;
+    }
+  }
+  
+  .govuk-accordion__section-header {
+    padding: 0;
+  }
+  
+  .govuk-accordion__section-heading {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .govuk-accordion__section-button {
+    display: block;
+    width: 100%;
+    padding: 15px 0;
+    text-align: left;
+    background: none;
+    border: none;
+    font-family: "GDS Transport", arial, sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.25;
+    color: #1d70b8;
+    text-decoration: underline;
+    cursor: pointer;
+    position: relative;
+    
+    &:hover {
+      color: #003078;
+    }
+    
+    &:focus {
+      outline: 3px solid #fd0;
+      outline-offset: 0;
+      background-color: #fd0;
+      color: #0b0c0c;
+    }
+    
+    // Add chevron icon
+    &::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: 0;
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 5px solid #1d70b8;
+      transform: translateY(-50%);
+      transition: transform 0.2s ease-in-out;
+    }
+    
+    &[aria-expanded="true"]::after {
+      transform: translateY(-50%) rotate(180deg);
+    }
+  }
+  
+  .govuk-accordion__section-content {
+    padding: 0 0 15px 0;
+    
+    &[hidden] {
+      display: none;
+    }
+    
+    &.govuk-accordion__section-content--expanded {
+      display: block;
+    }
+  }
+  
+  .govuk-accordion__section-content-text {
+    padding-top: 10px;
+  }
+}
+
 // Ensure MoJ components have proper styling and fonts
 .moj-add-another,
 .moj-badge,
@@ -556,12 +687,13 @@
   background-color: #ffffff;
 
   &__container {
-    overflow-y: auto;
     overflow-x: auto;
+    overflow-y: visible;
   }
 
   &__content {
     padding: 15px;
+    min-width: max-content;
   }
 }
 

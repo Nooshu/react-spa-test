@@ -380,20 +380,106 @@ export const MojComponents: React.FC = () => {
           <section id="moj-scrollable-pane" className="govuk-!-margin-top-6">
             <h2 className="govuk-heading-l">MoJ Scrollable Pane</h2>
             <div className="govuk-grid-row">
-              <div className="govuk-grid-column-two-thirds">
-                <MojScrollablePane height="200px">
-                  <p>This is a scrollable pane with limited height.</p>
-                  <p>Content that exceeds the height will be scrollable.</p>
-                  <p>Line 1</p>
-                  <p>Line 2</p>
-                  <p>Line 3</p>
-                  <p>Line 4</p>
-                  <p>Line 5</p>
-                  <p>Line 6</p>
-                  <p>Line 7</p>
-                  <p>Line 8</p>
-                  <p>Line 9</p>
-                  <p>Line 10</p>
+              <div className="govuk-grid-column-full">
+                <MojScrollablePane height="300px">
+                  <h3 className="govuk-heading-s">Historic rainfall in June</h3>
+                  <table className="govuk-table">
+                    <thead className="govuk-table__head">
+                      <tr className="govuk-table__row">
+                        <th className="govuk-table__header" scope="col">Station</th>
+                        <th className="govuk-table__header" scope="col">2022</th>
+                        <th className="govuk-table__header" scope="col">2021</th>
+                        <th className="govuk-table__header" scope="col">2020</th>
+                        <th className="govuk-table__header" scope="col">2019</th>
+                        <th className="govuk-table__header" scope="col">2018</th>
+                        <th className="govuk-table__header" scope="col">2017</th>
+                        <th className="govuk-table__header" scope="col">2016</th>
+                        <th className="govuk-table__header" scope="col">2015</th>
+                        <th className="govuk-table__header" scope="col">2014</th>
+                        <th className="govuk-table__header" scope="col">2013</th>
+                      </tr>
+                    </thead>
+                    <tbody className="govuk-table__body">
+                      <tr className="govuk-table__row">
+                        <th className="govuk-table__header" scope="row">Lerwick</th>
+                        <td className="govuk-table__cell">13.7mm</td>
+                        <td className="govuk-table__cell">13.8mm</td>
+                        <td className="govuk-table__cell">13.9mm</td>
+                        <td className="govuk-table__cell">12.7mm</td>
+                        <td className="govuk-table__cell">13.3mm</td>
+                        <td className="govuk-table__cell">13.3mm</td>
+                        <td className="govuk-table__cell">12.9mm</td>
+                        <td className="govuk-table__cell">11.2mm</td>
+                        <td className="govuk-table__cell">13.3mm</td>
+                        <td className="govuk-table__cell">12.7mm</td>
+                      </tr>
+                      <tr className="govuk-table__row">
+                        <th className="govuk-table__header" scope="row">Eskdalemuir</th>
+                        <td className="govuk-table__cell">17.0mm</td>
+                        <td className="govuk-table__cell">17.9mm</td>
+                        <td className="govuk-table__cell">17.2mm</td>
+                        <td className="govuk-table__cell">16.2mm</td>
+                        <td className="govuk-table__cell">19.7mm</td>
+                        <td className="govuk-table__cell">16.4mm</td>
+                        <td className="govuk-table__cell">17.6mm</td>
+                        <td className="govuk-table__cell">15.7mm</td>
+                        <td className="govuk-table__cell">17.8mm</td>
+                        <td className="govuk-table__cell">16.9mm</td>
+                      </tr>
+                      <tr className="govuk-table__row">
+                        <th className="govuk-table__header" scope="row">Valley</th>
+                        <td className="govuk-table__cell">17.5mm</td>
+                        <td className="govuk-table__cell">17.4mm</td>
+                        <td className="govuk-table__cell">17.9mm</td>
+                        <td className="govuk-table__cell">17.1mm</td>
+                        <td className="govuk-table__cell">20.2mm</td>
+                        <td className="govuk-table__cell">17.6mm</td>
+                        <td className="govuk-table__cell">18.0mm</td>
+                        <td className="govuk-table__cell">16.6mm</td>
+                        <td className="govuk-table__cell">18.0mm</td>
+                        <td className="govuk-table__cell">17.5mm</td>
+                      </tr>
+                      <tr className="govuk-table__row">
+                        <th className="govuk-table__header" scope="row">Heathrow</th>
+                        <td className="govuk-table__cell">23.2mm</td>
+                        <td className="govuk-table__cell">22.5mm</td>
+                        <td className="govuk-table__cell">22.5mm</td>
+                        <td className="govuk-table__cell">21.8mm</td>
+                        <td className="govuk-table__cell">24.2mm</td>
+                        <td className="govuk-table__cell">24.0mm</td>
+                        <td className="govuk-table__cell">20.7mm</td>
+                        <td className="govuk-table__cell">22.2mm</td>
+                        <td className="govuk-table__cell">22.1mm</td>
+                        <td className="govuk-table__cell">20.3mm</td>
+                      </tr>
+                      <tr className="govuk-table__row">
+                        <th className="govuk-table__header" scope="row">Hurn</th>
+                        <td className="govuk-table__cell">21.0mm</td>
+                        <td className="govuk-table__cell">20.7mm</td>
+                        <td className="govuk-table__cell">20.7mm</td>
+                        <td className="govuk-table__cell">19.9mm</td>
+                        <td className="govuk-table__cell">22.9mm</td>
+                        <td className="govuk-table__cell">21.9mm</td>
+                        <td className="govuk-table__cell">19.6mm</td>
+                        <td className="govuk-table__cell">20.5mm</td>
+                        <td className="govuk-table__cell">21.1mm</td>
+                        <td className="govuk-table__cell">19.6mm</td>
+                      </tr>
+                      <tr className="govuk-table__row">
+                        <th className="govuk-table__header" scope="row">Camborne</th>
+                        <td className="govuk-table__cell">17.9mm</td>
+                        <td className="govuk-table__cell">17.4mm</td>
+                        <td className="govuk-table__cell">17.1mm</td>
+                        <td className="govuk-table__cell">16.5mm</td>
+                        <td className="govuk-table__cell">19.7mm</td>
+                        <td className="govuk-table__cell">18.0mm</td>
+                        <td className="govuk-table__cell">17.0mm</td>
+                        <td className="govuk-table__cell">16.8mm</td>
+                        <td className="govuk-table__cell">17.8mm</td>
+                        <td className="govuk-table__cell">15.9mm</td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </MojScrollablePane>
               </div>
             </div>

@@ -12,6 +12,9 @@ declare global {
   interface Window {
     GOVUKFrontend: {
       initAll: () => void
+      Accordion: new (element: HTMLElement) => {
+        init: () => void
+      }
     }
   }
 }
