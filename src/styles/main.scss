@@ -5,6 +5,9 @@
 @import 'govuk-frontend/dist/govuk/components';
 @import 'govuk-frontend/dist/govuk/utilities';
 
+// Import MoJ Frontend
+@import '@ministryofjustice/frontend/moj/all';
+
 // Ensure body margin is reset (GOV.UK Frontend should handle this, but adding explicit reset)
 body {
   margin: 0;
@@ -45,9 +48,16 @@ body {
   
   .govuk-header__content {
     display: flex;
-    align-items: center;
+    flex-direction: column;
     flex: 1;
-    justify-content: space-between;
+    margin-left: 20px;
+  }
+  
+  .govuk-header__service-name {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    line-height: 1.2;
   }
   
   // Desktop navigation styles
@@ -58,7 +68,7 @@ body {
     
     .govuk-header__navigation {
       display: block !important;
-      margin-left: auto;
+      margin-left: 0;
     }
     
     .govuk-header__navigation-list {

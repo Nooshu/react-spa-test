@@ -18,6 +18,7 @@ export const Header: React.FC = () => {
     { path: '/', label: 'Home' },
     { path: '/forms', label: 'Forms' },
     { path: '/components', label: 'Components' },
+    { path: '/moj-components', label: 'MoJ Components' },
     { path: '/performance', label: 'Performance' },
   ]
 
@@ -54,38 +55,39 @@ export const Header: React.FC = () => {
           </Link>
         </div>
         <div className="govuk-header__content">
-          <Link to="/" className="govuk-header__link govuk-header__link--service-name">
-            React A11y Test
+          <Link to="/" className="govuk-header__link govuk-header__service-name">
+            React Accessibility Proof of Concept
           </Link>
-          <button
-            type="button"
-            className={clsx(
-              'govuk-header__menu-button govuk-js-header-toggle',
-              { 'govuk-header__menu-button--open': isMenuOpen }
-            )}
-            aria-controls="navigation"
-            aria-label="Show or hide Top Level Navigation"
-            onClick={toggleMenu}
-          >
-            Menu
-          </button>
           <nav
             className={clsx(
               'govuk-header__navigation',
               { 'govuk-header__navigation--open': isMenuOpen }
             )}
-            aria-label="Top Level Navigation"
+            aria-label="Menu"
             role="navigation"
           >
+            <button
+              type="button"
+              className={clsx(
+                'govuk-header__menu-button govuk-js-header-toggle',
+                { 'govuk-header__menu-button--open': isMenuOpen }
+              )}
+              aria-controls="navigation"
+              aria-label="Show or hide Top Level Navigation"
+              onClick={toggleMenu}
+              hidden={!isMenuOpen}
+            >
+              Menu
+            </button>
             <ul id="navigation" className="govuk-header__navigation-list">
               {navigationItems.map((item) => (
-                <li key={item.path} className="govuk-header__navigation-item">
+                <li key={item.path} className={clsx(
+                  'govuk-header__navigation-item',
+                  { 'govuk-header__navigation-item--active': location.pathname === item.path }
+                )}>
                   <Link
                     to={item.path}
-                    className={clsx(
-                      'govuk-header__link',
-                      { 'govuk-header__navigation-item--active': location.pathname === item.path }
-                    )}
+                    className="govuk-header__link"
                     onClick={closeMenu}
                   >
                     {item.label}

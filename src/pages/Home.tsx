@@ -8,10 +8,10 @@ export const Home: React.FC = () => {
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-two-thirds">
           <h1 className="govuk-heading-xl">
-            React A11y Test
+            React Accessibility Proof of Concept
           </h1>
           <p className="govuk-body-l">
-            A React-based Single Page Application built with the GOV.UK Design System 
+            A React-based Single Page Application built with GOV.UK and MoJ Design Systems 
             to demonstrate accessibility and performance best practices.
           </p>
         </div>
@@ -22,7 +22,7 @@ export const Home: React.FC = () => {
           <h2 className="govuk-heading-l">Purpose</h2>
           <p className="govuk-body">
             This proof of concept explores how accessible and performant a React SPA 
-            can be when built with the GOV.UK Design System components. It serves as 
+            can be when built with GOV.UK and MoJ Design System components. It serves as 
             a testing ground for:
           </p>
           <ul className="govuk-list govuk-list--bullet">

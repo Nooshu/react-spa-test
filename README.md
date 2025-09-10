@@ -1,10 +1,10 @@
 # React A11y Test
 
-A React-based Single Page Application (SPA) built with the GOV.UK Design System to demonstrate accessibility and performance best practices.
+A React-based Single Page Application (SPA) built with GOV.UK and MoJ Design Systems to demonstrate accessibility and performance best practices.
 
 ## 🎯 Purpose
 
-This proof of concept explores how accessible and performant a React SPA can be when built with the GOV.UK Design System components. It serves as a testing ground for:
+This proof of concept explores how accessible and performant a React SPA can be when built with GOV.UK and MoJ Design System components. It serves as a testing ground for:
 
 - **Accessibility**: WCAG 2.1 AA compliance, screen reader support, keyboard navigation
 - **Performance**: Bundle optimization, lazy loading, memoization, virtual scrolling
@@ -31,6 +31,7 @@ This proof of concept explores how accessible and performant a React SPA can be 
 ### Components
 - 📝 Comprehensive form examples with validation
 - 🎨 GOV.UK Design System component gallery
+- 🏛️ MoJ Design System component showcase
 - 📊 Performance testing and metrics
 - 🧭 Accessible navigation and routing
 
@@ -209,6 +210,7 @@ src/
 │   ├── Home.tsx
 │   ├── Forms.tsx
 │   ├── Components.tsx
+│   ├── MojComponents.tsx
 │   └── Performance.tsx
 ├── styles/             # SCSS styles
 ├── test/               # Test utilities
@@ -217,12 +219,28 @@ src/
 
 ## 🎨 Design System Integration
 
-This project uses GOV.UK Frontend and MoJ Frontend components built from scratch:
+This project integrates both GOV.UK Frontend and MoJ Frontend design systems:
 
-- **GOV.UK Frontend v5.11.2**: Latest version with accessibility improvements
-- **MoJ Frontend v5.1.5**: Ministry of Justice design system components
-- **Custom Components**: Built following GOV.UK Design System patterns
-- **Accessibility First**: All components meet WCAG 2.1 AA standards
+### GOV.UK Frontend v5.10.2
+- **Base Components**: Button, Input, Select, Textarea, etc.
+- **Layout Components**: Header, Footer, Layout, Grid
+- **Navigation**: Breadcrumbs, Pagination, Tabs
+- **Feedback**: Alert, Error Summary, Warning Text
+- **Forms**: Checkboxes, Radios, Date Input, File Upload
+
+### MoJ Frontend v5.1.5
+- **MoJ Card**: Enhanced card components with metadata
+- **MoJ Banner**: Service-specific banners with dismissible options
+- **MoJ Search**: Advanced search functionality
+- **MoJ Side Navigation**: Hierarchical navigation structure
+- **MoJ Multi-file Upload**: Drag-and-drop file upload with validation
+
+### Integration Approach
+- **React Wrappers**: Custom React components that encapsulate MoJ HTML/CSS
+- **JavaScript Initialization**: Automatic initialization of MoJ interactive components
+- **Type Safety**: TypeScript definitions for all components
+- **Accessibility**: WCAG 2.1 AA compliance maintained across both systems
+- **Performance**: Optimized bundle size with tree shaking
 
 ## 📚 Resources
 
