@@ -15,6 +15,9 @@ declare global {
       Accordion: new (element: HTMLElement) => {
         init: () => void
       }
+      Tabs: new (element: HTMLElement) => {
+        init: () => void
+      }
     }
   }
 }
