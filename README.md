@@ -26,7 +26,7 @@ This proof of concept explores how accessible and performant a React SPA can be 
 - ⚡ React.memo, useMemo, and useCallback optimizations
 - ⚡ Virtual scrolling for large datasets
 - ⚡ Bundle analysis and optimization
-- ⚡ Service worker ready
+- ⚡ Real-time performance metrics with Web Vitals
 
 ### Components
 - 📝 Comprehensive form examples with validation
@@ -38,10 +38,12 @@ This proof of concept explores how accessible and performant a React SPA can be 
 
 - **React 18** with TypeScript
 - **Vite** for build tooling
-- **GOV.UK Frontend** for design system
-- **GOV.UK React** for React components
+- **GOV.UK Frontend v5.11.2** for design system
+- **MoJ Frontend v5.1.5** for Ministry of Justice components
 - **React Router** for navigation
-- **ESLint** for code quality
+- **React Hook Form** with Zod validation
+- **Web Vitals** for performance monitoring
+- **Playwright** for accessibility testing
 
 ## 🏃‍♂️ Getting Started
 
@@ -75,8 +77,13 @@ npm run dev
 - `npm run build` - Build for production
 - `npm run preview` - Preview production build
 - `npm run lint` - Run ESLint
-- `npm run test` - Run tests
+- `npm run lint:fix` - Fix ESLint issues
+- `npm run test` - Run Vitest tests
 - `npm run test:coverage` - Run tests with coverage
+- `npm run test:ui` - Run tests with UI
+- `npm run analyze` - Analyze bundle size
+- `npm run a11y` - Run accessibility tests
+- `npm run lighthouse` - Run Lighthouse performance audit
 
 ## 📱 Pages
 
@@ -85,7 +92,7 @@ Overview of the application with key features and performance metrics.
 
 ### Forms
 Comprehensive form examples demonstrating:
-- Input validation and error handling
+- Input validation and error handling with Zod
 - Accessible form controls
 - Error summaries with field linking
 - Fieldset and legend usage
@@ -96,12 +103,12 @@ Interactive gallery showcasing:
 - Buttons, links, and interactive elements
 - Panels, cards, and content components
 - Tables with proper accessibility
-- Accordions and tabs
+- Accordions and tabs with keyboard navigation
 - Navigation components
 
 ### Performance
 Performance testing and optimization examples:
-- Real-time performance metrics
+- Real-time performance metrics with Web Vitals
 - Virtual scrolling demonstration
 - Memoization examples
 - Bundle analysis results
@@ -132,7 +139,7 @@ Performance testing and optimization examples:
 - Code splitting at route and component level
 - Vendor chunk separation
 - Tree shaking for unused code elimination
-- Gzip compression reducing bundle size by ~70%
+- Manual chunk configuration for optimal caching
 
 ### Runtime Performance
 - React.memo for component memoization
@@ -141,22 +148,37 @@ Performance testing and optimization examples:
 - Virtual scrolling for large datasets
 
 ### Loading Performance
-- Critical CSS inlined
-- Non-critical CSS loaded asynchronously
-- Image optimization and lazy loading
-- Service worker ready for caching
+- Lazy loading of route components
+- Optimized CSS loading
+- Web Vitals monitoring
+- Performance metrics dashboard
 
 ## 🧪 Testing
 
 The application includes comprehensive testing setup:
 
 ```bash
-# Run tests
+# Run unit tests
 npm run test
 
 # Run tests with coverage
 npm run test:coverage
+
+# Run tests with UI
+npm run test:ui
+
+# Run accessibility tests
+npm run a11y
+
+# Run Lighthouse audit
+npm run lighthouse
 ```
+
+### Test Structure
+- **Unit Tests**: Vitest with React Testing Library
+- **Accessibility Tests**: Playwright with accessibility assertions
+- **Performance Tests**: Playwright with performance monitoring
+- **E2E Tests**: Playwright for full user journeys
 
 ## 📊 Performance Metrics
 
@@ -172,23 +194,41 @@ Current performance targets:
 ### Code Quality
 - TypeScript for type safety
 - ESLint for code linting
-- Prettier for code formatting
-- Husky for git hooks (optional)
+- Prettier for code formatting (recommended)
 
 ### Component Structure
 ```
 src/
 ├── components/          # Reusable components
+│   ├── Button.tsx      # Accessible button component
+│   ├── Input.tsx       # Form input component
+│   ├── Accordion.tsx   # Accessible accordion
+│   ├── Tabs.tsx        # Keyboard-navigable tabs
+│   └── ...
 ├── pages/              # Page components
-├── hooks/              # Custom React hooks
-├── utils/              # Utility functions
+│   ├── Home.tsx
+│   ├── Forms.tsx
+│   ├── Components.tsx
+│   └── Performance.tsx
+├── styles/             # SCSS styles
+├── test/               # Test utilities
 └── types/              # TypeScript type definitions
 ```
+
+## 🎨 Design System Integration
+
+This project uses GOV.UK Frontend and MoJ Frontend components built from scratch:
+
+- **GOV.UK Frontend v5.11.2**: Latest version with accessibility improvements
+- **MoJ Frontend v5.1.5**: Ministry of Justice design system components
+- **Custom Components**: Built following GOV.UK Design System patterns
+- **Accessibility First**: All components meet WCAG 2.1 AA standards
 
 ## 📚 Resources
 
 - [GOV.UK Design System](https://design-system.service.gov.uk/)
-- [GOV.UK React Components](https://github.com/govuk-react/govuk-react)
+- [GOV.UK Frontend v5.11.2](https://github.com/alphagov/govuk-frontend/releases/tag/v5.11.2)
+- [MoJ Frontend v5.1.5](https://github.com/ministryofjustice/moj-frontend)
 - [React Accessibility](https://reactjs.org/docs/accessibility.html)
 - [WCAG 2.1 Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)
 - [Web Vitals](https://web.dev/vitals/)
@@ -199,7 +239,8 @@ src/
 2. Create a feature branch
 3. Make your changes
 4. Add tests if applicable
-5. Submit a pull request
+5. Ensure accessibility standards are met
+6. Submit a pull request
 
 ## 📄 License
 
@@ -208,5 +249,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 🙏 Acknowledgments
 
 - GOV.UK Design System team for the excellent design system
+- Ministry of Justice for MoJ Frontend components
 - React team for the powerful framework
 - Accessibility community for best practices and guidelines

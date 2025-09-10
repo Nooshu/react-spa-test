@@ -1,0 +1,98 @@
+// Import GOV.UK Frontend
+@import 'govuk-frontend/dist/govuk/base';
+@import 'govuk-frontend/dist/govuk/core';
+@import 'govuk-frontend/dist/govuk/objects';
+@import 'govuk-frontend/dist/govuk/components';
+@import 'govuk-frontend/dist/govuk/utilities';
+
+// Ensure body margin is reset (GOV.UK Frontend should handle this, but adding explicit reset)
+body {
+  margin: 0;
+}
+
+// Custom styles
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-main {
+  flex: 1;
+}
+
+// Ensure proper header alignment
+.govuk-header {
+  .govuk-header__container {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .govuk-header__logo {
+    .govuk-header__link--homepage {
+      display: flex;
+      align-items: center;
+      
+      .govuk-header__logotype {
+        height: 30px;
+        width: 148px;
+        vertical-align: middle;
+      }
+    }
+  }
+  
+  .govuk-header__content {
+    display: flex;
+    align-items: center;
+    flex: 1;
+  }
+}
+
+// Performance optimizations
+.gds-transition {
+  transition: all 0.2s ease-in-out;
+}
+
+// Focus management
+.focus-trap {
+  &:focus {
+    outline: 3px solid #ffdd00;
+    outline-offset: 2px;
+  }
+}
+
+// High contrast mode support
+@media (prefers-contrast: high) {
+  .govuk-button {
+    border: 2px solid;
+  }
+  
+  .govuk-link {
+    text-decoration: underline;
+  }
+}
+
+// Reduced motion support
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+// Print styles
+@media print {
+  .govuk-header,
+  .govuk-footer,
+  .govuk-phase-banner {
+    display: none;
+  }
+  
+  .govuk-main-wrapper {
+    margin: 0;
+    padding: 0;
+  }
+}
