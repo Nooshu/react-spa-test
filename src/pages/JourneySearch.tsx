@@ -11,6 +11,9 @@ export const JourneySearch: React.FC = () => {
       navigate('/journey/search-by-name')
     } else if (selectedOption === 'no') {
       navigate('/journey/search-by-location')
+    } else {
+      // Default behavior when no option is selected - navigate to search by name
+      navigate('/journey/search-by-name')
     }
   }
 
