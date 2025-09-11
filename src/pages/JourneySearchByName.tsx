@@ -7,9 +7,9 @@ export const JourneySearchByName: React.FC = () => {
 
   // Mock search results - in a real app this would come from an API
   const mockResults = [
-    { id: 1, name: 'Manchester Crown Court (Minshull St)', url: '/court/1' },
-    { id: 2, name: 'Birmingham Crown Court', url: '/court/2' },
-    { id: 3, name: 'Inner London Crown Court', url: '/court/3' }
+    { id: 1, name: 'Manchester Crown Court (Minshull St)', url: '/court/manchester-crown-court' },
+    { id: 2, name: 'Birmingham Crown Court', url: '/court/birmingham-crown-court' },
+    { id: 3, name: 'Inner London Crown Court', url: '/court/inner-london-crown-court' }
   ]
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -20,7 +20,13 @@ export const JourneySearchByName: React.FC = () => {
 
   const handleResultClick = (courtId: number) => {
     // Navigate to court details page
-    navigate('/court/manchester-crown-court')
+    if (courtId === 1) {
+      navigate('/court/manchester-crown-court')
+    } else if (courtId === 2) {
+      navigate('/court/birmingham-crown-court')
+    } else if (courtId === 3) {
+      navigate('/court/inner-london-crown-court')
+    }
   }
 
   return (

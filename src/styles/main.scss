@@ -1339,6 +1339,11 @@ body {
   .govuk-grid-column-one-third {
     padding-left: 20px;
   }
+  
+  .side-content img {
+    max-width: 400px;
+    width: 100%;
+  }
 }
 
 // Journey Search Results - ensure links stay unvisited blue

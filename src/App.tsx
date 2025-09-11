@@ -12,6 +12,8 @@ import { Journey } from '@/pages/Journey'
 import { JourneySearch } from '@/pages/JourneySearch'
 import { JourneySearchByName } from '@/pages/JourneySearchByName'
 import { CourtDetail } from '@/pages/CourtDetail'
+import { BirminghamCrownCourt } from '@/pages/BirminghamCrownCourt'
+import { InnerLondonCrownCourt } from '@/pages/InnerLondonCrownCourt'
 import { NotFound } from '@/pages/NotFound'
 
 const App: FC = () => {
@@ -27,6 +29,8 @@ const App: FC = () => {
           <Route path="/journey/search" element={<JourneySearch />} />
           <Route path="/journey/search-by-name" element={<JourneySearchByName />} />
           <Route path="/court/manchester-crown-court" element={<CourtDetail />} />
+          <Route path="/court/birmingham-crown-court" element={<BirminghamCrownCourt />} />
+          <Route path="/court/inner-london-crown-court" element={<InnerLondonCrownCourt />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Layout>
