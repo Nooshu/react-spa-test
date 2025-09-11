@@ -1,6 +1,20 @@
 services:
+  # Docker-based deployment (recommended)
   - type: web
-    name: react-a11y-test
+    name: react-a11y-test-docker
+    env: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+
+  # Alternative: Node.js native deployment (fallback)
+  - type: web
+    name: react-a11y-test-node
     env: node
     plan: free
     buildCommand: npm ci && npm run build

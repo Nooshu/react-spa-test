@@ -1,6 +1,11 @@
 # Deployment to Render.com
 
-This project is configured for deployment on Render.com with a Node.js backend that serves the React frontend and provides API endpoints for performance monitoring.
+This project supports multiple deployment methods on Render.com:
+
+1. **Docker Deployment** (Recommended) - Provides consistent environment and better reliability
+2. **Node.js Native Deployment** - Traditional deployment method
+
+Both methods include a Node.js backend that serves the React frontend and provides API endpoints for performance monitoring.
 
 ## Deployment Steps
 
@@ -35,13 +40,34 @@ Ensure your code is committed and pushed to a Git repository (GitHub, GitLab, or
    - Click "Create Web Service"
    - Render will automatically build and deploy your application
 
-### 3. Alternative: Use render.yaml
+### 3. Docker Deployment (Recommended)
+
+For better consistency and reliability, use Docker deployment:
+
+1. **Create Docker Service**:
+   - Click "New +" → "Web Service"
+   - Select "Docker" as environment
+   - Connect your Git repository
+   - Render will automatically detect the Dockerfile
+
+2. **Configure Service**:
+   - **Name**: `react-a11y-test-docker`
+   - **Environment**: `Docker`
+   - **Dockerfile Path**: `./Dockerfile` (auto-detected)
+   - **Health Check Path**: `/health`
+
+3. **Environment Variables**:
+   - `NODE_ENV`: `production`
+   - `PORT`: `3000`
+
+### 4. Alternative: Use render.yaml
 
 If you prefer configuration as code, you can use the included `render.yaml` file:
 
 1. Ensure `render.yaml` is in your repository root
 2. When creating the service, select "From render.yaml"
-3. Render will automatically use the configuration from the file
+3. Choose between Docker or Node.js deployment
+4. Render will automatically use the configuration from the file
 
 ## Features Included
 

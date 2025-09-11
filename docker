@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Simple Docker commands for React A11y Test
+# Usage: ./docker [command]
+
+case "$1" in
+  "build")
+    docker build -t react-a11y-test .
+    ;;
+  "up")
+    docker-compose up
+    ;;
+  "down")
+    docker-compose down
+    ;;
+  *)
+    echo "Usage: ./docker [build|up|down]"
+    echo "  build - Build Docker image"
+    echo "  up    - Start application"
+    echo "  down  - Stop application"
+    ;;
+esac

@@ -1,6 +1,10 @@
-const express = require('express')
-const path = require('path')
-const cors = require('cors')
+import express from 'express'
+import path from 'path'
+import cors from 'cors'
+import { fileURLToPath } from 'url'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 const app = express()
 const port = process.env.PORT || 3000
@@ -10,7 +14,8 @@ app.use(cors())
 app.use(express.json())
 
 // Serve static files from the React app build directory
-app.use(express.static(path.join(__dirname, 'dist')))
+app.use('/assets', express.static(path.join(__dirname, 'dist/assets')))
+app.use('/vite.svg', express.static(path.join(__dirname, 'dist/vite.svg')))
 
 // Performance monitoring endpoints (same as server-example.js)
 const performanceMetrics = []
@@ -228,4 +233,4 @@ app.listen(port, () => {
   console.log(`🔍 Health check available at /health`)
 })
 
-module.exports = app
+export default app

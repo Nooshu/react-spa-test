@@ -19,7 +19,14 @@
     "lighthouse:ci": "lhci autorun",
     "server:example": "node server-example.js",
     "monitor:dev": "npm run dev & npm run server:example",
-    "performance:test": "npm run build && npm run preview & sleep 5 && npm run lighthouse:ci"
+    "performance:test": "npm run build && npm run preview & sleep 5 && npm run lighthouse:ci",
+    "build": "tsc && vite build",
+    "docker:build": "docker build -t react-a11y-test .",
+    "docker:up": "docker-compose up",
+    "docker:run": "docker run -p 3000:3000 react-a11y-test",
+    "docker:dev": "docker-compose --profile dev up",
+    "docker:prod": "docker-compose up",
+    "docker:stop": "docker-compose down"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.2",
