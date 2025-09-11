@@ -57,7 +57,7 @@ export const CookieBanner: React.FC<CookieBannerProps> = ({
         <div className="govuk-grid-row">
           <div className="govuk-grid-column-two-thirds">
             <h2 className="govuk-cookie-banner__heading govuk-heading-m">
-              Cookies on React Accessibility Proof of Concept
+              Cookies on React Single-page Application (SPA) Proof of Concept
             </h2>
             <div className="govuk-cookie-banner__content">
               <p className="govuk-body">

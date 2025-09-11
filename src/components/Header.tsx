@@ -55,7 +55,7 @@ export const Header: React.FC = () => {
         </div>
         <div className="govuk-header__content">
           <Link to="/" className="govuk-header__link govuk-header__service-name">
-            React Accessibility Proof of Concept
+            React Single-page Application (SPA) Proof of Concept
           </Link>
           <nav
             className={clsx(

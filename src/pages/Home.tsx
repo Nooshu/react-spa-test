@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { PerformanceMetrics } from '@/components/PerformanceMetrics'
 import { JourneyStarter } from '@/components/JourneyStarter'
 
 export const Home: React.FC = () => {
@@ -9,7 +8,7 @@ export const Home: React.FC = () => {
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-two-thirds">
           <h1 className="govuk-heading-xl">
-            React Accessibility Proof of Concept
+            React Single-page Application (SPA) Proof of Concept
           </h1>
           <p className="govuk-body-l">
             A React-based Single Page Application built with GOV.UK and MoJ Design Systems 
@@ -104,13 +103,6 @@ export const Home: React.FC = () => {
               </div>
             </div>
           </div>
-        </div>
-      </div>
-
-      <div className="govuk-grid-row govuk-!-margin-top-6">
-        <div className="govuk-grid-column-full">
-          <h2 className="govuk-heading-l">Current Performance Metrics</h2>
-          <PerformanceMetrics />
         </div>
       </div>
 
