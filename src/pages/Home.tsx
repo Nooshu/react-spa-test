@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { PerformanceMetrics } from '@/components/PerformanceMetrics'
+import { JourneyStarter } from '@/components/JourneyStarter'
 
 export const Home: React.FC = () => {
   return (
@@ -16,6 +17,8 @@ export const Home: React.FC = () => {
           </p>
         </div>
       </div>
+
+      <JourneyStarter />
 
       <div className="govuk-grid-row govuk-!-margin-top-6">
         <div className="govuk-grid-column-one-half">
