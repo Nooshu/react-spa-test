@@ -74,13 +74,14 @@ npm run monitor:dev
 ```
 
 ### Production Integration
-1. **Update API endpoints** in the monitoring utilities to point to your backend
-2. **Implement the endpoints** in your backend:
-   - `POST /api/performance-metrics`
-   - `POST /api/errors`
-   - `POST /api/performance-alerts`
+1. **Configure API endpoints** in the monitoring utilities to point to your backend (optional)
+2. **Implement the endpoints** in your backend if needed:
+   - `POST /api/performance-metrics` - Store performance data
+   - `POST /api/errors` - Store error data  
+   - `POST /api/performance-alerts` - Store budget alerts
 3. **Set up alerting** for poor performance metrics
 4. **Configure data retention** policies
+5. **Note**: The monitoring utilities will log to console by default if no API endpoints are configured
 
 ### Using the Hook
 ```typescript

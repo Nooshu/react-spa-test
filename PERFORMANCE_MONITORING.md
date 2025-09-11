@@ -78,7 +78,7 @@ const PERFORMANCE_BUDGETS = {
 By default, only 10% of users are sampled to reduce data volume:
 
 ```typescript
-const performanceMonitor = new PerformanceMonitor('/api/performance-metrics', 0.1)
+const performanceMonitor = new PerformanceMonitor('', 0.1) // No API endpoint - logs to console
 ```
 
 ## Usage
@@ -145,10 +145,10 @@ npm run server:example
 ```
 
 This provides endpoints for:
-- `POST /api/performance-metrics` - Store performance data
-- `POST /api/errors` - Store error data
-- `POST /api/performance-alerts` - Store budget alerts
-- `GET /api/analytics/*` - Retrieve analytics data
+- `POST /api/performance-metrics` - Store performance data (optional - logs to console by default)
+- `POST /api/errors` - Store error data (optional - logs to console by default)
+- `POST /api/performance-alerts` - Store budget alerts (optional - logs to console by default)
+- `GET /api/analytics/*` - Retrieve analytics data (if implemented)
 
 ### Production Integration
 

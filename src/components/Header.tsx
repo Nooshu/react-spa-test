@@ -19,7 +19,6 @@ export const Header: React.FC = () => {
     { path: '/forms', label: 'Forms' },
     { path: '/components', label: 'Components' },
     { path: '/moj-components', label: 'MoJ Components' },
-    { path: '/performance', label: 'Performance' },
   ]
 
   return (

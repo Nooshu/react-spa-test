@@ -20,7 +20,7 @@ class PerformanceMonitor {
   private sampleRate: number = 0.1 // 10% sampling
   private isEnabled: boolean = true
 
-  constructor(apiEndpoint: string = '/api/performance-metrics', sampleRate: number = 0.1) {
+  constructor(apiEndpoint: string = '', sampleRate: number = 0.1) {
     this.apiEndpoint = apiEndpoint
     this.sampleRate = sampleRate
   }
@@ -33,21 +33,25 @@ class PerformanceMonitor {
     if (!this.isEnabled || !this.shouldSample()) return
 
     try {
-      // In development, just log to console
-      if (process.env.NODE_ENV === 'development') {
-        console.log('Performance Metric:', data)
-        return
-      }
-
-      await fetch(this.apiEndpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...data,
-          sessionId: this.getSessionId(),
-          userId: this.getUserId(),
-        }),
+      // Log performance metrics to console (API endpoints removed)
+      console.log('Performance Metric:', {
+        ...data,
+        sessionId: this.getSessionId(),
+        userId: this.getUserId(),
       })
+      
+      // If API endpoint is configured, send to server
+      if (this.apiEndpoint) {
+        await fetch(this.apiEndpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            ...data,
+            sessionId: this.getSessionId(),
+            userId: this.getUserId(),
+          }),
+        })
+      }
     } catch (error) {
       console.warn('Failed to send performance metric:', error)
     }

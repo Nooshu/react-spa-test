@@ -157,11 +157,6 @@ export const Components: React.FC = () => {
               />
             </div>
             <div className="govuk-grid-column-one-third">
-              <Card
-                title="Performance Optimization"
-                content="Performance testing and optimization techniques for React applications."
-                link="/performance"
-              />
             </div>
             <div className="govuk-grid-column-one-third">
               <Card

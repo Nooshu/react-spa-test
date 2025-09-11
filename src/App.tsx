@@ -8,7 +8,6 @@ import { Home } from '@/pages/Home'
 import { Forms } from '@/pages/Forms'
 import { Components } from '@/pages/Components'
 import { MojComponents } from '@/pages/MojComponents'
-import { Performance } from '@/pages/Performance'
 import { NotFound } from '@/pages/NotFound'
 
 const App: FC = () => {
@@ -20,7 +19,6 @@ const App: FC = () => {
           <Route path="/forms" element={<Forms />} />
           <Route path="/components" element={<Components />} />
           <Route path="/moj-components" element={<MojComponents />} />
-          <Route path="/performance" element={<Performance />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Layout>

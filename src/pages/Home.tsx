@@ -87,18 +87,6 @@ export const Home: React.FC = () => {
               </div>
             </div>
             <div className="govuk-grid-column-one-quarter">
-              <div className="govuk-card">
-                <div className="govuk-card__content">
-                  <h3 className="govuk-heading-s">
-                    <Link to="/performance" className="govuk-link">
-                      Performance
-                    </Link>
-                  </h3>
-                  <p className="govuk-body-s">
-                    Performance testing and optimization examples with real-time metrics.
-                  </p>
-                </div>
-              </div>
             </div>
             <div className="govuk-grid-column-one-quarter">
               <div className="govuk-card">

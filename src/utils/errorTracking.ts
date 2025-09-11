@@ -18,7 +18,7 @@ class ErrorTracker {
   private apiEndpoint: string
   private isEnabled: boolean = true
 
-  constructor(apiEndpoint: string = '/api/errors') {
+  constructor(apiEndpoint: string = '') {
     this.apiEndpoint = apiEndpoint
     this.init()
   }
@@ -125,17 +125,17 @@ class ErrorTracker {
     if (!this.isEnabled) return
 
     try {
-      // In development, just log to console
-      if (process.env.NODE_ENV === 'development') {
-        console.error('Error Tracked:', errorData)
-        return
+      // Always log errors to console (API endpoints removed)
+      console.error('Error Tracked:', errorData)
+      
+      // If API endpoint is configured, send to server
+      if (this.apiEndpoint) {
+        await fetch(this.apiEndpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(errorData),
+        })
       }
-
-      await fetch(this.apiEndpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(errorData),
-      })
     } catch (error) {
       console.warn('Failed to send error data:', error)
     }

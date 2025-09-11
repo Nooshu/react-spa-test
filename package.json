@@ -18,9 +18,7 @@
     "lighthouse:ci": "lhci autorun",
     "server:example": "node server-example.js",
     "monitor:dev": "npm run dev & npm run server:example",
-    "performance:test": "npm run build && npm run preview & sleep 5 && npm run lighthouse:ci",
-    "vercel-build": "npm run build",
-    "deploy": "vercel --prod"
+    "performance:test": "npm run build && npm run preview & sleep 5 && npm run lighthouse:ci"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.2",

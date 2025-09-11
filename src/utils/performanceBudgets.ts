@@ -32,7 +32,7 @@ const PERFORMANCE_BUDGETS: PerformanceBudgets = {
 type BudgetStatus = 'good' | 'needs-improvement' | 'poor'
 
 class PerformanceBudgetMonitor {
-  private apiEndpoint: string = '/api/performance-alerts'
+  private apiEndpoint: string = ''
   private isEnabled: boolean = true
 
   checkBudget(metric: string, value: number): BudgetStatus {
@@ -62,17 +62,17 @@ class PerformanceBudgetMonitor {
       }
 
       try {
-        // In development, just log to console
-        if (process.env.NODE_ENV === 'development') {
-          console.warn('Performance Alert:', alertData)
-          return
+        // Always log performance alerts to console (API endpoints removed)
+        console.warn('Performance Alert:', alertData)
+        
+        // If API endpoint is configured, send to server
+        if (this.apiEndpoint) {
+          await fetch(this.apiEndpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(alertData),
+          })
         }
-
-        await fetch(this.apiEndpoint, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(alertData),
-        })
       } catch (error) {
         console.warn('Failed to send performance alert:', error)
       }
