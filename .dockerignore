@@ -81,7 +81,7 @@ pids
 
 # Gatsby files
 .cache/
-public
+# public - REMOVED: We need the public folder for static assets
 
 # Storybook build outputs
 .out
