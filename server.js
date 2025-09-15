@@ -13,8 +13,19 @@ const port = process.env.PORT || 3000
 app.use(cors())
 app.use(express.json())
 
+// Debug middleware to log static file requests
+app.use('/assets', (req, res, next) => {
+  console.log(`📁 Static file request: ${req.path}`)
+  next()
+})
+
 // Serve static files from the React app build directory
-app.use('/assets', express.static(path.join(__dirname, 'dist/assets')))
+app.use('/assets', express.static(path.join(__dirname, 'dist/assets'), {
+  maxAge: '1y', // Cache static assets for 1 year
+  etag: true,
+  lastModified: true
+}))
+
 app.use('/vite.svg', express.static(path.join(__dirname, 'dist/vite.svg')))
 
 // Performance monitoring endpoints (same as server-example.js)
