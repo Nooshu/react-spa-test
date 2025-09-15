@@ -13,11 +13,13 @@ export const JourneyStarter: React.FC = () => {
           <div className="journey-starter__action">
             <Link 
               to="/journey" 
-              className="govuk-button govuk-button--start journey-starter__button"
+              className="govuk-button govuk-button--start"
               role="button"
+              draggable="false"
+              data-module="govuk-button"
               aria-label="Start Find a Court or Tribunal Service journey"
             >
-              Start
+              Start now
               <svg 
                 className="govuk-button__start-icon" 
                 xmlns="http://www.w3.org/2000/svg" 

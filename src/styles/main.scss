@@ -1410,38 +1410,8 @@ body {
     margin-left: 0;
   }
   
-  &__button {
-    background-color: #00703c;
-    color: #ffffff;
-    border: 2px solid #00703c;
-    padding: 12px 20px;
-    font-size: 18px;
-    font-weight: bold;
-    text-decoration: none;
-    border-radius: 4px;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-family: "GDS Transport", arial, sans-serif;
-    
-    &:hover {
-      background-color: #005a30;
-      border-color: #005a30;
-    }
-    
-    &:focus {
-      outline: 3px solid #ffdd00;
-      outline-offset: 0;
-      background-color: #005a30;
-      border-color: #005a30;
-    }
-    
-    .govuk-button__start-icon {
-      width: 17.5px;
-      height: 19px;
-      margin-left: 5px;
-    }
-  }
+  // Let GOV.UK Frontend handle all button styling
+  // The govuk-button--start class provides the correct styling
 }
 
 // Print styles
