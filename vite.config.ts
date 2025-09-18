@@ -83,6 +83,8 @@ export default defineConfig({
         additionalData: `
           @import "govuk-frontend/dist/govuk/base";
         `,
+        quietDeps: true,
+        silenceDeprecations: ['legacy-js-api', 'import', 'global-builtin', 'color-functions', 'slash-div'],
       },
     },
   },
