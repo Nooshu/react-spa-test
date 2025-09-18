@@ -3,7 +3,7 @@ import { configure } from '@testing-library/react'
 import { vi } from 'vitest'
 
 // Configure testing library
-configure({ testIdAttribute: 'data-testid' })
+configure({})
 
 // Mock IntersectionObserver
 global.IntersectionObserver = vi.fn().mockImplementation(() => ({

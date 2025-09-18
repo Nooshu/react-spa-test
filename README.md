@@ -37,14 +37,17 @@ This proof of concept explores how accessible and performant a React SPA can be 
 
 ## 🛠️ Tech Stack
 
-- **React 18** with TypeScript
-- **Vite** for build tooling
+- **React 19** with TypeScript
+- **Vite 7** for build tooling
 - **GOV.UK Frontend v5.11.2** for design system
 - **MoJ Frontend v5.1.5** for Ministry of Justice components
-- **React Router** for navigation
-- **React Hook Form** with Zod validation
-- **Web Vitals** for performance monitoring
-- **Playwright** for accessibility testing
+- **React Router DOM v7** for navigation
+- **React Hook Form v7** with Zod v4 validation
+- **Web Vitals v5** for performance monitoring
+- **Vitest v3** for testing
+- **Playwright v1** for accessibility testing
+- **ESLint v9** for code quality
+- **TypeScript ESLint v8** for TypeScript linting
 
 ## 🏃‍♂️ Getting Started
 
@@ -85,6 +88,110 @@ npm run dev
 - `npm run analyze` - Analyze bundle size
 - `npm run a11y` - Run accessibility tests
 - `npm run lighthouse` - Run Lighthouse performance audit
+
+### Docker Deployment
+
+The application includes comprehensive Docker support for both development and production environments.
+
+#### Quick Start with Docker
+
+```bash
+# Build and run with Docker Compose
+docker-compose up
+
+# Or build the image manually
+docker build -t react-a11y-test .
+docker run -p 3000:3000 react-a11y-test
+```
+
+#### Development with Docker
+
+```bash
+# Start development environment with hot reload
+docker-compose --profile dev up
+
+# Or use npm scripts
+npm run docker:dev
+```
+
+**Access URLs:**
+- **Development**: http://localhost:3001 (with hot reload)
+- **Production**: http://localhost:3000
+
+#### Production Deployment
+
+```bash
+# Build production image
+npm run docker:build
+
+# Run production container
+npm run docker:run
+
+# Or use Docker Compose
+npm run docker:prod
+```
+
+#### Docker Features
+
+- **Multi-stage builds** for optimized production images
+- **Security best practices** (non-root user, minimal base image)
+- **Health checks** for monitoring
+- **Development and production** configurations
+- **Asset optimization** with GOV.UK Frontend integration
+
+For detailed Docker deployment instructions, see [DOCKER_DEPLOYMENT.md](DOCKER_DEPLOYMENT.md).
+
+## 🐳 Docker Deployment
+
+### Production Deployment
+
+The application is fully containerized and ready for production deployment:
+
+```bash
+# Build production image
+docker build -t react-a11y-test .
+
+# Run production container
+docker run -p 3000:3000 react-a11y-test
+
+# Or use Docker Compose
+docker-compose up
+```
+
+### Development with Docker
+
+For development with hot reload and volume mounting:
+
+```bash
+# Start development environment
+docker-compose --profile dev up
+
+# Or use npm scripts
+npm run docker:dev
+```
+
+### Docker Features
+
+- **Multi-stage builds** for optimized production images
+- **Security best practices** (non-root user, Alpine Linux base)
+- **Health checks** for monitoring and orchestration
+- **Asset optimization** with proper GOV.UK Frontend integration
+- **Development and production** configurations
+- **Docker Compose** for easy orchestration
+
+### Deployment Options
+
+1. **Local Development**: `docker-compose --profile dev up`
+2. **Production Build**: `docker-compose up`
+3. **Cloud Deployment**: Compatible with Render.com, AWS, GCP, Azure
+4. **Kubernetes**: Ready for container orchestration
+
+### Performance Benefits
+
+- **Consistent Environment**: Same Node.js version across all environments
+- **Asset Management**: GOV.UK Frontend assets properly bundled
+- **Security**: Non-root user execution with minimal attack surface
+- **Monitoring**: Built-in health checks and performance metrics
 
 ## 📱 Pages
 
@@ -185,10 +292,16 @@ npm run lighthouse
 
 Current performance targets:
 - **Lighthouse Score**: 90+ (Accessibility)
-- **Bundle Size**: <250KB (gzipped)
+- **Bundle Size**: ~320KB (gzipped) - React 19 includes additional features
 - **Load Time**: <1s (3G connection)
 - **Memory Usage**: <30MB
 - **Render Time**: <50ms
+
+### Current Bundle Analysis
+- **Main Bundle**: 319.43 kB (88.73 kB gzipped)
+- **CSS Bundle**: 232.34 kB (28.11 kB gzipped)
+- **Vendor Bundle**: 11.88 kB (4.23 kB gzipped)
+- **Forms Bundle**: 73.39 kB (22.07 kB gzipped)
 
 ## 🔧 Development
 
@@ -221,7 +334,7 @@ src/
 
 This project integrates both GOV.UK Frontend and MoJ Frontend design systems:
 
-### GOV.UK Frontend v5.10.2
+### GOV.UK Frontend v5.11.2
 - **Base Components**: Button, Input, Select, Textarea, etc.
 - **Layout Components**: Header, Footer, Layout, Grid
 - **Navigation**: Breadcrumbs, Pagination, Tabs
@@ -247,9 +360,13 @@ This project integrates both GOV.UK Frontend and MoJ Frontend design systems:
 - [GOV.UK Design System](https://design-system.service.gov.uk/)
 - [GOV.UK Frontend v5.11.2](https://github.com/alphagov/govuk-frontend/releases/tag/v5.11.2)
 - [MoJ Frontend v5.1.5](https://github.com/ministryofjustice/moj-frontend)
+- [React 19 Documentation](https://react.dev/)
+- [Vite 7 Documentation](https://vitejs.dev/)
+- [Vitest v3 Documentation](https://vitest.dev/)
 - [React Accessibility](https://reactjs.org/docs/accessibility.html)
 - [WCAG 2.1 Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)
-- [Web Vitals](https://web.dev/vitals/)
+- [Web Vitals v5](https://web.dev/vitals/)
+- [Docker Deployment Guide](DOCKER_DEPLOYMENT.md)
 
 ## 🤝 Contributing
 

@@ -1,12 +1,8 @@
 // Import GOV.UK Frontend
-@import 'govuk-frontend/dist/govuk/base';
-@import 'govuk-frontend/dist/govuk/core';
-@import 'govuk-frontend/dist/govuk/objects';
-@import 'govuk-frontend/dist/govuk/components';
-@import 'govuk-frontend/dist/govuk/utilities';
+@import 'govuk-frontend/dist/govuk/index';
 
-// Import MoJ Frontend
-@import '@ministryofjustice/frontend/moj/all';
+// Import MoJ Frontend CSS directly
+@import '@ministryofjustice/frontend/moj/moj-frontend.min.css';
 
 // Custom GOV.UK Frontend component fixes
 .govuk-accordion {

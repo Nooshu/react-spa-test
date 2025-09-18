@@ -1,5 +1,5 @@
 import React from 'react'
-import { FixedSizeList as List } from 'react-window'
+import { List } from 'react-window'
 
 interface VirtualListProps<T> {
   items: T[]
@@ -16,22 +16,19 @@ export const VirtualList = <T,>({
   renderItem, 
   className 
 }: VirtualListProps<T>) => {
-  const ItemRenderer = ({ index, style }: { index: number; style: React.CSSProperties }) => (
-    <div style={style}>
-      {renderItem({ item: items[index], index })}
-    </div>
-  )
-
   return (
     <div className={className}>
-      <List
-        height={height}
-        itemCount={items.length}
-        itemSize={itemHeight}
-        width="100%"
-      >
-        {ItemRenderer}
-      </List>
+      <List<object>
+        rowCount={items.length}
+        rowHeight={itemHeight}
+        style={{ height, width: "100%" }}
+        rowComponent={({ index, style }: { index: number; style: React.CSSProperties }) => (
+          <div style={style}>
+            {renderItem({ item: items[index], index })}
+          </div>
+        )}
+        rowProps={{} as any}
+      />
     </div>
   )
 }

@@ -8,19 +8,14 @@ import { Button } from '../components/Button'
 describe('Components', () => {
   it('renders Header component', () => {
     render(
-      <BrowserRouter
-        future={{
-          v7_startTransition: true,
-          v7_relativeSplatPath: true
-        }}
-      >
+      <BrowserRouter>
         <Header />
       </BrowserRouter>
     )
     
     expect(screen.getByRole('banner')).toBeInTheDocument()
     expect(screen.getByRole('navigation')).toBeInTheDocument()
-    expect(screen.getByText('React A11y Test')).toBeInTheDocument()
+    expect(screen.getByText('React Single-page Application (SPA) Proof of Concept')).toBeInTheDocument()
   })
 
   it('renders Footer component', () => {

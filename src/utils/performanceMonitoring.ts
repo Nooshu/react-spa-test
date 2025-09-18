@@ -1,4 +1,4 @@
-import { getCLS, getFID, getFCP, getLCP, getTTFB } from 'web-vitals'
+import { onCLS, onINP, onFCP, onLCP, onTTFB } from 'web-vitals'
 
 interface PerformanceData {
   metric: string
@@ -75,14 +75,14 @@ class PerformanceMonitor {
     if (!this.isEnabled) return
 
     // Core Web Vitals
-    getCLS((metric) => this.sendMetric(this.formatMetric(metric, 'CLS')))
-    getFID((metric) => this.sendMetric(this.formatMetric(metric, 'FID')))
-    getFCP((metric) => this.sendMetric(this.formatMetric(metric, 'FCP')))
-    getLCP((metric) => this.sendMetric(this.formatMetric(metric, 'LCP')))
-    getTTFB((metric) => this.sendMetric(this.formatMetric(metric, 'TTFB')))
+    onCLS((metric) => this.sendMetric(this.formatMetric(metric, 'CLS')))
+    onINP((metric) => this.sendMetric(this.formatMetric(metric, 'INP')))
+    onFCP((metric) => this.sendMetric(this.formatMetric(metric, 'FCP')))
+    onLCP((metric) => this.sendMetric(this.formatMetric(metric, 'LCP')))
+    onTTFB((metric) => this.sendMetric(this.formatMetric(metric, 'TTFB')))
     
     // Interaction to Next Paint (replaces FID)
-    this.trackINP()
+    // Note: INP is now handled by onINP above
     
     // Custom metrics
     this.trackPageLoad()
@@ -91,30 +91,6 @@ class PerformanceMonitor {
     this.trackBundleSize()
   }
 
-  private trackINP(): void {
-    if ('PerformanceObserver' in window) {
-      const observer = new PerformanceObserver((list) => {
-        for (const entry of list.getEntries()) {
-          if (entry.entryType === 'event') {
-            const eventEntry = entry as any
-            this.sendMetric({
-              metric: 'INP',
-              value: eventEntry.processingStart - eventEntry.startTime,
-              delta: eventEntry.processingStart - eventEntry.startTime,
-              id: eventEntry.name,
-              navigationType: 'navigate',
-              timestamp: Date.now(),
-              url: window.location.href,
-              userAgent: navigator.userAgent,
-              connectionType: (navigator as any).connection?.effectiveType,
-              deviceMemory: (navigator as any).deviceMemory,
-            })
-          }
-        }
-      })
-      observer.observe({ entryTypes: ['event'] })
-    }
-  }
 
   private formatMetric(metric: any, name: string): PerformanceData {
     return {

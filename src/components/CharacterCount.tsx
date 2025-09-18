@@ -45,7 +45,7 @@ export const CharacterCount: React.FC<CharacterCountProps> = ({
 
   return (
     <div className={clsx('govuk-character-count', className)} data-module="govuk-character-count">
-      {React.cloneElement(children as React.ReactElement, {
+      {React.cloneElement(children as React.ReactElement<any>, {
         onInput: handleInput,
         maxLength: maxLength,
         'aria-describedby': 'character-count-message'

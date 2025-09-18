@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { getCLS, getFID, getFCP, getLCP, getTTFB } from 'web-vitals'
+import { onCLS, onINP, onFCP, onLCP, onTTFB } from 'web-vitals'
 import { performanceBudgetMonitor } from '@/utils/performanceBudgets'
 
 interface Metrics {
   cls: number | null
-  fid: number | null
+  inp: number | null
   fcp: number | null
   lcp: number | null
   ttfb: number | null
@@ -13,7 +13,7 @@ interface Metrics {
 export const PerformanceMetrics: React.FC = () => {
   const [metrics, setMetrics] = useState<Metrics>({
     cls: null,
-    fid: null,
+    inp: null,
     fcp: null,
     lcp: null,
     ttfb: null
@@ -24,11 +24,11 @@ export const PerformanceMetrics: React.FC = () => {
       setMetrics(prev => ({ ...prev, [name]: value }))
     }
 
-    getCLS((metric) => updateMetric('cls', metric.value))
-    getFID((metric) => updateMetric('fid', metric.value))
-    getFCP((metric) => updateMetric('fcp', metric.value))
-    getLCP((metric) => updateMetric('lcp', metric.value))
-    getTTFB((metric) => updateMetric('ttfb', metric.value))
+    onCLS((metric) => updateMetric('cls', metric.value))
+    onINP((metric) => updateMetric('inp', metric.value))
+    onFCP((metric) => updateMetric('fcp', metric.value))
+    onLCP((metric) => updateMetric('lcp', metric.value))
+    onTTFB((metric) => updateMetric('ttfb', metric.value))
   }, [])
 
   const formatMetric = (value: number | null, unit: string) => {
@@ -49,8 +49,8 @@ export const PerformanceMetrics: React.FC = () => {
       description: 'Measures visual stability'
     },
     {
-      name: 'fid',
-      label: 'First Input Delay',
+      name: 'inp',
+      label: 'Interaction to Next Paint',
       unit: 'ms',
       description: 'Measures interactivity'
     },
