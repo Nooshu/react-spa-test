@@ -289,12 +289,22 @@ export const Components: React.FC = () => {
           </WarningText>
           
           <h3 className="govuk-heading-m govuk-!-margin-top-6">Tags</h3>
-          <div className="govuk-button-group">
-            <Tag>Default</Tag>
-            <Tag variant="success">Success</Tag>
-            <Tag variant="warning">Warning</Tag>
-            <Tag variant="error">Error</Tag>
-          </div>
+          <Table
+            caption="GOV.UK Design System tag variants"
+            headers={['Class name', 'Tag']}
+            rows={[
+              ['govuk-tag--grey', <Tag variant="grey">Inactive</Tag>],
+              ['govuk-tag--green', <Tag variant="green">New</Tag>],
+              ['govuk-tag--turquoise', <Tag variant="turquoise">Active</Tag>],
+              ['govuk-tag--blue', <Tag variant="blue">Pending</Tag>],
+              ['govuk-tag--light-blue', <Tag variant="light-blue">In progress</Tag>],
+              ['govuk-tag--purple', <Tag variant="purple">Received</Tag>],
+              ['govuk-tag--pink', <Tag variant="pink">Sent</Tag>],
+              ['govuk-tag--red', <Tag variant="red">Rejected</Tag>],
+              ['govuk-tag--orange', <Tag variant="orange">Declined</Tag>],
+              ['govuk-tag--yellow', <Tag variant="yellow">Delayed</Tag>]
+            ]}
+          />
           
           <h3 className="govuk-heading-m govuk-!-margin-top-6">Panel</h3>
           <Panel title="Application complete">

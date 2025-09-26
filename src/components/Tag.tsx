@@ -3,7 +3,7 @@ import { clsx } from 'clsx'
 
 interface TagProps {
   children: React.ReactNode
-  variant?: 'default' | 'success' | 'warning' | 'error'
+  variant?: 'default' | 'grey' | 'green' | 'turquoise' | 'blue' | 'light-blue' | 'purple' | 'pink' | 'red' | 'orange' | 'yellow'
   className?: string
 }
 
@@ -14,9 +14,16 @@ export const Tag: React.FC<TagProps> = ({
 }) => {
   const variantClasses = {
     default: '',
-    success: 'govuk-tag--success',
-    warning: 'govuk-tag--warning',
-    error: 'govuk-tag--error'
+    grey: 'govuk-tag--grey',
+    green: 'govuk-tag--green',
+    turquoise: 'govuk-tag--turquoise',
+    blue: 'govuk-tag--blue',
+    'light-blue': 'govuk-tag--light-blue',
+    purple: 'govuk-tag--purple',
+    pink: 'govuk-tag--pink',
+    red: 'govuk-tag--red',
+    orange: 'govuk-tag--orange',
+    yellow: 'govuk-tag--yellow'
   }
 
   return (

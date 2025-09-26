@@ -4,7 +4,7 @@ import { clsx } from 'clsx'
 interface TableProps {
   caption: string
   headers: string[]
-  rows: string[][]
+  rows: (string | React.ReactNode)[][]
   className?: string
 }
 
