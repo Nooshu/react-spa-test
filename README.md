@@ -1,3 +1,5 @@
+# Note: 🚨🚨This proof of concept (PoC) is no longer maintained, leaving the code here for future reference. Feel free to archive if required. 🚨🚨
+
 # React A11y Test
 
 A React-based Single Page Application (SPA) built with GOV.UK and MoJ Design Systems to demonstrate accessibility and performance best practices.
