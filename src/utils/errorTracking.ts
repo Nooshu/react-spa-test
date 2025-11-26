@@ -103,7 +103,7 @@ class ErrorTracker {
         memoryUsage: (performance as any).memory?.usedJSHeapSize,
         timestamp: Date.now(),
       }
-    } catch (error) {
+    } catch (_error) {
       return { timestamp: Date.now() }
     }
   }

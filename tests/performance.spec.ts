@@ -36,7 +36,7 @@ test.describe('Performance Tests', () => {
   })
 
   test('should have optimized bundle size', async ({ page }) => {
-    const response = await page.goto('/')
+    await page.goto('/')
     
     // Check that main JavaScript bundle is reasonable size
     const resources = await page.evaluate(() => {
