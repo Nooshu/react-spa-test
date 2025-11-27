@@ -16,9 +16,6 @@ export const Header: React.FC = () => {
 
   const navigationItems = [
     { path: '/', label: 'Home' },
-    { path: '/forms', label: 'Forms' },
-    { path: '/components', label: 'Components' },
-    { path: '/moj-components', label: 'MoJ Components' },
   ]
 
   return (
