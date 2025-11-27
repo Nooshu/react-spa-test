@@ -71,7 +71,7 @@
     "postcss": "^8.4.31",
     "sass": "^1.69.5",
     "typescript": "^5.2.2",
-    "vite": "^7.1.11",
+    "vite": "7.2.4",
     "vite-bundle-analyzer": "^1.2.3",
     "vitest": "^4.0.14",
     "wait-on": "^9.0.0"
@@ -80,7 +80,7 @@
     "tmp": "^0.2.4"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=24.0.0"
   },
   "keywords": [
     "react",
