@@ -10,7 +10,6 @@ import {
   Breadcrumbs,
   CharacterCount,
   Checkboxes,
-  CookieBanner,
   DateInput,
   Details,
   ErrorMessage,
@@ -403,9 +402,6 @@ export const Components: React.FC = () => {
               placeholder="Enter your description here..."
             />
           </CharacterCount>
-          
-          <h3 className="govuk-heading-m govuk-!-margin-top-6">Cookie Banner</h3>
-          <CookieBanner />
           
           <h3 className="govuk-heading-m govuk-!-margin-top-6">Exit This Page</h3>
           <p className="govuk-body">Press the Escape key to show the exit this page button.</p>
