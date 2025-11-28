@@ -9,16 +9,21 @@ set -euo pipefail
 # Add your Render.com service URLs here (one per line)
 # These should be the full URLs to your services, e.g., https://your-service.onrender.com
 SERVICES=(
-  # "https://gds-next-prototype.onrender.com/"
-  # "https://nestjs-frontend-8w7q.onrender.com"
-  # "https://react-spa-test.onrender.com"
+  "https://gds-next-prototype.onrender.com/"
+  "https://nestjs-frontend-8w7q.onrender.com"
+  "https://react-spa-test.onrender.com"
 )
 
-# Default interval between pings (in seconds)
-INTERVAL=${INTERVAL:-60}
+# Default interval range between visits (in seconds)
+# Random interval will be chosen between MIN_INTERVAL and MAX_INTERVAL
+MIN_INTERVAL=${MIN_INTERVAL:-60}
+MAX_INTERVAL=${MAX_INTERVAL:-120}
 
-# Health check endpoint (defaults to /health)
-HEALTH_ENDPOINT=${HEALTH_ENDPOINT:-"/health"}
+# Endpoint to hit (defaults to root page to mimic browser visit)
+ENDPOINT=${ENDPOINT:-"/"}
+
+# Browser User-Agent (mimics Chrome on macOS)
+USER_AGENT=${USER_AGENT:-"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"}
 
 # Colors for output
 RED='\033[0;31m'
@@ -27,24 +32,42 @@ YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
-# Function to ping a service
+# Function to ping a service (mimics browser visit)
 ping_service() {
   local url=$1
   local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
   
-  # Construct full URL with health endpoint
-  local full_url="${url}${HEALTH_ENDPOINT}"
+  # Remove trailing slash from URL if present, then add endpoint
+  local clean_url="${url%/}"
+  local full_url="${clean_url}${ENDPOINT}"
   
-  echo -e "${BLUE}[${timestamp}]${NC} Pinging ${url}..."
+  echo -e "${BLUE}[${timestamp}]${NC} Visiting ${url} (mimicking browser)..."
   
-  # Use curl to ping the service
+  # Use curl to mimic a browser request with proper headers
   # -s: silent mode (no progress bar)
   # -f: fail silently on HTTP errors
   # -o /dev/null: discard output
   # -w: write format string for status code
+  # -L: follow redirects (like a browser would)
   # --max-time: maximum time in seconds for the request
   # --connect-timeout: timeout for connection
-  if curl -s -f -o /dev/null -w "%{http_code}" --max-time 10 --connect-timeout 5 "${full_url}" > /tmp/curl_status_$$ 2>&1; then
+  # -H: add browser-like headers
+  if curl -s -f -L -o /dev/null -w "%{http_code}" \
+    --max-time 30 \
+    --connect-timeout 10 \
+    -H "User-Agent: ${USER_AGENT}" \
+    -H "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7" \
+    -H "Accept-Language: en-GB,en-US;q=0.9,en;q=0.8" \
+    -H "Accept-Encoding: gzip, deflate, br" \
+    -H "DNT: 1" \
+    -H "Connection: keep-alive" \
+    -H "Upgrade-Insecure-Requests: 1" \
+    -H "Sec-Fetch-Dest: document" \
+    -H "Sec-Fetch-Mode: navigate" \
+    -H "Sec-Fetch-Site: none" \
+    -H "Sec-Fetch-User: ?1" \
+    -H "Cache-Control: max-age=0" \
+    "${full_url}" > /tmp/curl_status_$$ 2>&1; then
     local status_code=$(cat /tmp/curl_status_$$)
     rm -f /tmp/curl_status_$$
     
@@ -62,19 +85,36 @@ ping_service() {
   fi
 }
 
+# Function to generate random interval between MIN and MAX
+get_random_interval() {
+  local min=$1
+  local max=$2
+  # Generate random number between min and max (inclusive)
+  echo $((RANDOM % (max - min + 1) + min))
+}
+
 # Function to ping all services
 ping_all_services() {
   local success_count=0
-  local total_count=${#SERVICES[@]}
+  local active_count=0
   
-  if [ ${total_count} -eq 0 ]; then
+  # Count active (non-commented) services
+  for service in "${SERVICES[@]}"; do
+    # Skip empty lines and comments
+    [[ -z "${service}" || "${service}" =~ ^[[:space:]]*# ]] && continue
+    ((active_count++))
+  done
+  
+  if [ ${active_count} -eq 0 ]; then
     echo -e "${RED}Error: No services configured!${NC}"
     echo "Please edit this script and add your Render.com service URLs to the SERVICES array."
+    echo "Make sure the URLs are not commented out (remove the # at the start of the line)."
     exit 1
   fi
   
   echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-  echo -e "${BLUE}Pinging ${total_count} service(s) every ${INTERVAL} seconds${NC}"
+  echo -e "${BLUE}Visiting ${active_count} service(s)${NC}"
+  echo -e "${BLUE}(Mimicking browser requests to keep services alive)${NC}"
   echo -e "${BLUE}Press Ctrl+C to stop${NC}"
   echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
   echo ""
@@ -90,7 +130,7 @@ ping_all_services() {
   done
   
   echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-  echo -e "Results: ${GREEN}${success_count}${NC}/${total_count} services responded successfully"
+  echo -e "Results: ${GREEN}${success_count}${NC}/${active_count} services responded successfully"
   echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
   echo ""
 }
@@ -115,33 +155,31 @@ main() {
     exit 1
   fi
   
-  # Validate interval
-  if ! [[ "${INTERVAL}" =~ ^[0-9]+$ ]] || [ "${INTERVAL}" -lt 30 ]; then
-    echo -e "${YELLOW}Warning: Interval should be at least 30 seconds. Using default of 300 seconds.${NC}"
-    INTERVAL=300
+  # Validate interval range
+  if ! [[ "${MIN_INTERVAL}" =~ ^[0-9]+$ ]] || [ "${MIN_INTERVAL}" -lt 30 ]; then
+    echo -e "${YELLOW}Warning: MIN_INTERVAL should be at least 30 seconds. Using default of 60 seconds.${NC}"
+    MIN_INTERVAL=60
   fi
   
-  # Check if services are configured
-  if [ ${#SERVICES[@]} -eq 0 ]; then
-    echo -e "${RED}Error: No services configured!${NC}"
-    echo ""
-    echo "To configure services, edit this script and add your Render.com URLs:"
-    echo ""
-    echo "  SERVICES=("
-    echo "    \"https://your-service-1.onrender.com\""
-    echo "    \"https://your-service-2.onrender.com\""
-    echo "    \"https://your-service-3.onrender.com\""
-    echo "  )"
-    echo ""
-    exit 1
+  if ! [[ "${MAX_INTERVAL}" =~ ^[0-9]+$ ]] || [ "${MAX_INTERVAL}" -lt "${MIN_INTERVAL}" ]; then
+    echo -e "${YELLOW}Warning: MAX_INTERVAL must be >= MIN_INTERVAL. Setting MAX_INTERVAL to ${MIN_INTERVAL} + 60.${NC}"
+    MAX_INTERVAL=$((MIN_INTERVAL + 60))
   fi
+  
+  # Check if services are configured (will be checked in ping_all_services with better error message)
+  
+  echo -e "${BLUE}Interval range: ${MIN_INTERVAL}-${MAX_INTERVAL} seconds (randomized)${NC}"
+  echo ""
   
   # Run continuously
   while true; do
     ping_all_services
-    echo -e "${BLUE}Waiting ${INTERVAL} seconds until next ping...${NC}"
+    
+    # Generate random interval for this cycle
+    local next_interval=$(get_random_interval "${MIN_INTERVAL}" "${MAX_INTERVAL}")
+    echo -e "${BLUE}Waiting ${next_interval} seconds until next visit...${NC}"
     echo ""
-    sleep "${INTERVAL}"
+    sleep "${next_interval}"
   done
 }
 
@@ -153,33 +191,45 @@ if [[ "${1:-}" == "--help" ]] || [[ "${1:-}" == "-h" ]]; then
   echo ""
   echo "Options:"
   echo "  -h, --help              Show this help message"
-  echo "  -i, --interval SECONDS  Set ping interval in seconds (default: 300)"
-  echo "  -e, --endpoint PATH    Set health check endpoint (default: /health)"
+  echo "  -m, --min SECONDS       Set minimum interval in seconds (default: 60)"
+  echo "  -M, --max SECONDS       Set maximum interval in seconds (default: 120)"
+  echo "  -e, --endpoint PATH     Set endpoint to visit (default: /)"
   echo ""
   echo "Environment Variables:"
-  echo "  INTERVAL               Ping interval in seconds (default: 300)"
-  echo "  HEALTH_ENDPOINT        Health check endpoint path (default: /health)"
+  echo "  MIN_INTERVAL           Minimum visit interval in seconds (default: 60)"
+  echo "  MAX_INTERVAL           Maximum visit interval in seconds (default: 120)"
+  echo "  ENDPOINT               Endpoint path to visit (default: /)"
+  echo "  USER_AGENT             Browser user agent string (default: Chrome on macOS)"
   echo ""
   echo "Configuration:"
   echo "  Edit this script and add your Render.com service URLs to the SERVICES array"
   echo ""
+  echo "Note:"
+  echo "  The script uses a random interval between MIN_INTERVAL and MAX_INTERVAL"
+  echo "  for each cycle to make the pattern less predictable."
+  echo ""
   echo "Examples:"
-  echo "  $0                                    # Run with default settings"
-  echo "  $0 -i 180                            # Ping every 180 seconds"
-  echo "  INTERVAL=120 $0                      # Ping every 120 seconds"
-  echo "  HEALTH_ENDPOINT=/api/health $0       # Use custom health endpoint"
+  echo "  $0                                    # Run with default settings (60-120s random)"
+  echo "  $0 -m 90 -M 180                      # Random interval between 90-180 seconds"
+  echo "  MIN_INTERVAL=45 MAX_INTERVAL=90 $0   # Random interval between 45-90 seconds"
+  echo "  ENDPOINT=/health $0                   # Visit /health endpoint instead"
+  echo "  ENDPOINT=/api/status $0              # Visit custom endpoint"
   exit 0
 fi
 
 # Parse command line arguments
 while [[ $# -gt 0 ]]; do
   case $1 in
-    -i|--interval)
-      INTERVAL="$2"
+    -m|--min)
+      MIN_INTERVAL="$2"
+      shift 2
+      ;;
+    -M|--max)
+      MAX_INTERVAL="$2"
       shift 2
       ;;
     -e|--endpoint)
-      HEALTH_ENDPOINT="$2"
+      ENDPOINT="$2"
       shift 2
       ;;
     *)
