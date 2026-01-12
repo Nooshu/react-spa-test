@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useState, useMemo, useCallback } from 'react'
 import { Button } from '@/components/Button'
 import { VirtualList } from '@/components/VirtualList'

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import Link from 'next/link'
 import { clsx } from 'clsx'
 
 interface TaskListItem {
@@ -58,7 +58,7 @@ export const TaskList: React.FC<TaskListProps> = ({ items, className }) => {
                 {item.name}
               </a>
             ) : item.to ? (
-              <Link to={item.to} className="govuk-link govuk-task-list__link">
+              <Link href={item.to} className="govuk-link govuk-task-list__link">
                 {item.name}
               </Link>
             ) : (

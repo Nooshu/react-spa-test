@@ -1,5 +1,8 @@
+'use client'
+
 import React, { useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { clsx } from 'clsx'
 
 interface ServiceNavigationItem {
@@ -19,7 +22,7 @@ export const ServiceNavigation: React.FC<ServiceNavigationProps> = ({
   className
 }) => {
   const [isOpen, setIsOpen] = useState(false)
-  const location = useLocation()
+  const pathname = usePathname()
 
   const toggleOpen = () => {
     setIsOpen(!isOpen)
@@ -57,11 +60,11 @@ export const ServiceNavigation: React.FC<ServiceNavigationProps> = ({
               </a>
             ) : item.to ? (
               <Link
-                to={item.to}
+                href={item.to}
                 className={clsx(
                   'govuk-service-navigation__link',
                   { 
-                    'govuk-service-navigation__link--current': item.current || location.pathname === item.to 
+                    'govuk-service-navigation__link--current': item.current || pathname === item.to 
                   }
                 )}
               >

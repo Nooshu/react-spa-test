@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import Link from 'next/link'
 
 export const Journey: React.FC = () => {
   return (
@@ -28,7 +28,7 @@ export const Journey: React.FC = () => {
           
           <div className="govuk-!-margin-top-6">
             <Link 
-              to="/journey/search" 
+              href="/journey/search" 
               className="govuk-button govuk-button--start"
               role="button"
               aria-label="Start Find a Court or Tribunal Service journey"

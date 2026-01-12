@@ -1,12 +1,14 @@
+'use client'
+
 import React, { useState, useRef, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useRouter } from 'next/navigation'
 import { ErrorMessage, ErrorSummary } from '@/components'
 
 export const JourneySearchByName: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>('')
   const [validationError, setValidationError] = useState<string>('')
   const [hasSearched, setHasSearched] = useState<boolean>(false)
-  const navigate = useNavigate()
+  const router = useRouter()
   const errorSummaryRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -65,11 +67,11 @@ export const JourneySearchByName: React.FC = () => {
   const handleResultClick = (courtId: number) => {
     // Navigate to court details page
     if (courtId === 1) {
-      navigate('/court/manchester-crown-court')
+      router.push('/court/manchester-crown-court')
     } else if (courtId === 2) {
-      navigate('/court/birmingham-crown-court')
+      router.push('/court/birmingham-crown-court')
     } else if (courtId === 3) {
-      navigate('/court/inner-london-crown-court')
+      router.push('/court/inner-london-crown-court')
     }
   }
 

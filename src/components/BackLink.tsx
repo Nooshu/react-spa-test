@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import Link from 'next/link'
 import { clsx } from 'clsx'
 
 interface BackLinkProps {
@@ -27,7 +27,7 @@ export const BackLink: React.FC<BackLinkProps> = ({
 
   if (to) {
     return (
-      <Link to={to} className={linkClasses}>
+      <Link href={to} className={linkClasses}>
         {children}
       </Link>
     )

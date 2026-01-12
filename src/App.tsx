@@ -4,17 +4,17 @@ import { Layout } from '@/components/Layout'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
 
 // Import pages directly for now to avoid lazy loading issues
-import { Home } from '@/pages/Home'
-import { Forms } from '@/pages/Forms'
-import { Components } from '@/pages/Components'
-import { MojComponents } from '@/pages/MojComponents'
-import { Journey } from '@/pages/Journey'
-import { JourneySearch } from '@/pages/JourneySearch'
-import { JourneySearchByName } from '@/pages/JourneySearchByName'
-import { ManchesterCrownCourt } from '@/pages/ManchesterCrownCourt'
-import { BirminghamCrownCourt } from '@/pages/BirminghamCrownCourt'
-import { InnerLondonCrownCourt } from '@/pages/InnerLondonCrownCourt'
-import { NotFound } from '@/pages/NotFound'
+import { Home } from '@/page-components/Home'
+import { Forms } from '@/page-components/Forms'
+import { Components } from '@/page-components/Components'
+import { MojComponents } from '@/page-components/MojComponents'
+import { Journey } from '@/page-components/Journey'
+import { JourneySearch } from '@/page-components/JourneySearch'
+import { JourneySearchByName } from '@/page-components/JourneySearchByName'
+import { ManchesterCrownCourt } from '@/page-components/ManchesterCrownCourt'
+import { BirminghamCrownCourt } from '@/page-components/BirminghamCrownCourt'
+import { InnerLondonCrownCourt } from '@/page-components/InnerLondonCrownCourt'
+import { NotFound } from '@/page-components/NotFound'
 
 const App: FC = () => {
   return (

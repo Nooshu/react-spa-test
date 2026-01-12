@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import Link from 'next/link'
 
 export const JourneyStarter: React.FC = () => {
   return (
@@ -12,7 +12,7 @@ export const JourneyStarter: React.FC = () => {
           </div>
           <div className="journey-starter__action">
             <Link 
-              to="/journey" 
+              href="/journey" 
               className="govuk-button govuk-button--start"
               role="button"
               draggable="false"

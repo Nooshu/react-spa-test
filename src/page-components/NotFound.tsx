@@ -1,5 +1,7 @@
+'use client'
+
 import React from 'react'
-import { Link } from 'react-router-dom'
+import Link from 'next/link'
 import { Button } from '@/components/Button'
 
 export const NotFound: React.FC = () => {
@@ -22,7 +24,7 @@ export const NotFound: React.FC = () => {
         </p>
         
         <div className="govuk-button-group">
-          <Button as={Link} to="/">
+          <Button as="link" href="/">
             Go to homepage
           </Button>
           <Button variant="secondary" onClick={() => window.history.back()}>

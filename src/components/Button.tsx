@@ -1,6 +1,6 @@
 import React from 'react'
 import { clsx } from 'clsx'
-import { Link } from 'react-router-dom'
+import Link from 'next/link'
 
 interface BaseButtonProps {
   variant?: 'primary' | 'secondary' | 'warning' | 'start'
@@ -19,13 +19,13 @@ interface LinkButtonProps extends BaseButtonProps, Omit<React.AnchorHTMLAttribut
   children: React.ReactNode
 }
 
-interface RouterLinkButtonProps extends BaseButtonProps {
-  as: typeof Link
-  to: string
+interface NextLinkButtonProps extends BaseButtonProps {
+  as: 'link'
+  href: string
   children: React.ReactNode
 }
 
-type ButtonComponentProps = ButtonProps | LinkButtonProps | RouterLinkButtonProps
+type ButtonComponentProps = ButtonProps | LinkButtonProps | NextLinkButtonProps
 
 export const Button: React.FC<ButtonComponentProps> = ({
   variant = 'primary',
@@ -83,11 +83,11 @@ export const Button: React.FC<ButtonComponentProps> = ({
     )
   }
 
-  if (as === Link) {
+  if (as === 'link') {
     return (
       <Link
+        href={(props as { href: string }).href}
         className={buttonClasses}
-        {...(props as { to: string })}
       >
         {children}
         {iconElement}

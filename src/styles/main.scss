@@ -1,4 +1,6 @@
 // Import GOV.UK Frontend
+// Note: Using @import for compatibility with GOV.UK Frontend
+// The deprecation warning can be ignored as GOV.UK Frontend doesn't fully support @use yet
 @import 'govuk-frontend/dist/govuk/index';
 
 // Import MoJ Frontend CSS directly

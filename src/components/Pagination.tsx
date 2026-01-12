@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import Link from 'next/link'
 import { clsx } from 'clsx'
 
 interface PaginationItem {
@@ -45,7 +45,7 @@ export const Pagination: React.FC<PaginationProps> = ({
               </span>
             </a>
           ) : previous.to ? (
-            <Link className="govuk-link govuk-pagination__link" to={previous.to}>
+            <Link className="govuk-link govuk-pagination__link" href={previous.to}>
               <svg className="govuk-pagination__icon govuk-pagination__icon--prev" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13">
                 <path d="m6.5938-0.0078125-6.7266 6.7266 6.7441 6.4062 1.377-1.449-4.1856-3.9768h12.896v-2h-12.984l4.2931-4.293-1.414-1.414z"></path>
               </svg>
@@ -72,7 +72,7 @@ export const Pagination: React.FC<PaginationProps> = ({
                   {item.number}
                 </a>
               ) : item.to ? (
-                <Link className="govuk-link govuk-pagination__link" to={item.to} aria-label={`Page ${item.number}`}>
+                <Link className="govuk-link govuk-pagination__link" href={item.to} aria-label={`Page ${item.number}`}>
                   {item.number}
                 </Link>
               ) : (
@@ -97,7 +97,7 @@ export const Pagination: React.FC<PaginationProps> = ({
               </svg>
             </a>
           ) : next.to ? (
-            <Link className="govuk-link govuk-pagination__link" to={next.to}>
+            <Link className="govuk-link govuk-pagination__link" href={next.to}>
               <span className="govuk-pagination__link-title">
                 {next.text || 'Next'}
               </span>

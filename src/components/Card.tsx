@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import Link from 'next/link'
 import { clsx } from 'clsx'
 
 interface CardProps {
@@ -19,7 +19,7 @@ export const Card: React.FC<CardProps> = ({
     <>
       <h3 className="govuk-card__heading">
         {link ? (
-          <Link to={link} className="govuk-link">
+          <Link href={link} className="govuk-link">
             {title}
           </Link>
         ) : (

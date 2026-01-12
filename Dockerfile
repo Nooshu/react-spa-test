@@ -1,5 +1,5 @@
-# Multi-stage build for React A11y Test application
-# Stage 1: Build the React application
+# Multi-stage build for Next.js application
+# Stage 1: Build the Next.js application
 FROM node:24-alpine AS builder
 
 # Set working directory
@@ -37,10 +37,9 @@ COPY package*.json ./
 RUN npm install --only=production && npm cache clean --force
 
 # Copy built application from builder stage
-COPY --from=builder --chown=nextjs:nodejs /app/dist ./dist
-
-# Copy server files
-COPY --chown=nextjs:nodejs server.js ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 
 # Switch to non-root user
 USER nextjs
@@ -50,10 +49,10 @@ EXPOSE 3000
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD node -e "require('http').get('http://localhost:3000/health', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })"
+  CMD node -e "require('http').get('http://localhost:3000/api/health', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })"
 
 # Use dumb-init to handle signals properly
 ENTRYPOINT ["dumb-init", "--"]
 
-# Start the application
+# Start the Next.js application
 CMD ["node", "server.js"]

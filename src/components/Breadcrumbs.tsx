@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import Link from 'next/link'
 import { clsx } from 'clsx'
 
 interface BreadcrumbItem {
@@ -36,7 +36,7 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
                       {item.text}
                     </a>
                   ) : item.to ? (
-                    <Link to={item.to} className="govuk-breadcrumbs__link">
+                    <Link href={item.to} className="govuk-breadcrumbs__link">
                       {item.text}
                     </Link>
                   ) : (

@@ -20,11 +20,14 @@ class ErrorTracker {
 
   constructor(apiEndpoint: string = '') {
     this.apiEndpoint = apiEndpoint
-    this.init()
+    // Only initialize in browser environment
+    if (typeof window !== 'undefined') {
+      this.init()
+    }
   }
 
   private init(): void {
-    if (!this.isEnabled) return
+    if (!this.isEnabled || typeof window === 'undefined') return
 
     window.addEventListener('error', (event) => this.trackError(event))
     window.addEventListener('unhandledrejection', (event) => this.trackPromiseRejection(event))
@@ -34,6 +37,8 @@ class ErrorTracker {
   }
 
   private trackError(event: ErrorEvent): void {
+    if (typeof window === 'undefined') return
+    
     const errorData: ErrorData = {
       type: 'JavaScript Error',
       message: event.message,
@@ -43,7 +48,7 @@ class ErrorTracker {
       stack: event.error?.stack,
       timestamp: Date.now(),
       url: window.location.href,
-      userAgent: navigator.userAgent,
+      userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : '',
       performanceMetrics: this.getCurrentMetrics(),
       sessionId: this.getSessionId(),
       userId: this.getUserId(),
@@ -53,13 +58,15 @@ class ErrorTracker {
   }
 
   private trackPromiseRejection(event: PromiseRejectionEvent): void {
+    if (typeof window === 'undefined') return
+    
     const errorData: ErrorData = {
       type: 'Unhandled Promise Rejection',
       message: event.reason?.message || 'Unknown promise rejection',
       stack: event.reason?.stack,
       timestamp: Date.now(),
       url: window.location.href,
-      userAgent: navigator.userAgent,
+      userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : '',
       performanceMetrics: this.getCurrentMetrics(),
       sessionId: this.getSessionId(),
       userId: this.getUserId(),
@@ -69,6 +76,8 @@ class ErrorTracker {
   }
 
   private trackReactErrors(): void {
+    if (typeof window === 'undefined') return
+    
     // Track React component errors
     const originalConsoleError = console.error
     console.error = (...args) => {
@@ -81,7 +90,7 @@ class ErrorTracker {
           stack: new Error().stack,
           timestamp: Date.now(),
           url: window.location.href,
-          userAgent: navigator.userAgent,
+          userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : '',
           performanceMetrics: this.getCurrentMetrics(),
           sessionId: this.getSessionId(),
           userId: this.getUserId(),
@@ -95,6 +104,10 @@ class ErrorTracker {
   }
 
   private getCurrentMetrics(): any {
+    if (typeof window === 'undefined' || typeof performance === 'undefined') {
+      return { timestamp: Date.now() }
+    }
+    
     try {
       const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming
       return {
@@ -109,15 +122,24 @@ class ErrorTracker {
   }
 
   private getSessionId(): string {
+    if (typeof window === 'undefined' || typeof sessionStorage === 'undefined') {
+      return 'server-session'
+    }
+    
     let sessionId = sessionStorage.getItem('performance-session-id')
     if (!sessionId) {
-      sessionId = crypto.randomUUID()
+      sessionId = typeof crypto !== 'undefined' && crypto.randomUUID 
+        ? crypto.randomUUID() 
+        : `session-${Date.now()}`
       sessionStorage.setItem('performance-session-id', sessionId)
     }
     return sessionId
   }
 
   private getUserId(): string | null {
+    if (typeof window === 'undefined' || typeof localStorage === 'undefined') {
+      return null
+    }
     return localStorage.getItem('userId')
   }
 
@@ -143,13 +165,15 @@ class ErrorTracker {
 
   // Public methods for manual error tracking
   trackCustomError(error: Error, context?: any): void {
+    if (typeof window === 'undefined') return
+    
     const errorData: ErrorData = {
       type: 'Custom Error',
       message: error.message,
       stack: error.stack,
       timestamp: Date.now(),
       url: window.location.href,
-      userAgent: navigator.userAgent,
+      userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : '',
       performanceMetrics: this.getCurrentMetrics(),
       sessionId: this.getSessionId(),
       userId: this.getUserId(),
@@ -160,12 +184,14 @@ class ErrorTracker {
   }
 
   trackUserAction(action: string, context?: any): void {
+    if (typeof window === 'undefined') return
+    
     const errorData: ErrorData = {
       type: 'User Action',
       message: action,
       timestamp: Date.now(),
       url: window.location.href,
-      userAgent: navigator.userAgent,
+      userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : '',
       performanceMetrics: this.getCurrentMetrics(),
       sessionId: this.getSessionId(),
       userId: this.getUserId(),

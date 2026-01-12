@@ -58,21 +58,30 @@ class PerformanceMonitor {
   }
 
   private getSessionId(): string {
+    if (typeof window === 'undefined' || typeof sessionStorage === 'undefined') {
+      return 'server-session'
+    }
+    
     let sessionId = sessionStorage.getItem('performance-session-id')
     if (!sessionId) {
-      sessionId = crypto.randomUUID()
+      sessionId = typeof crypto !== 'undefined' && crypto.randomUUID 
+        ? crypto.randomUUID() 
+        : `session-${Date.now()}`
       sessionStorage.setItem('performance-session-id', sessionId)
     }
     return sessionId
   }
 
   private getUserId(): string | null {
+    if (typeof window === 'undefined' || typeof localStorage === 'undefined') {
+      return null
+    }
     // Return user ID if authenticated, null otherwise
     return localStorage.getItem('userId')
   }
 
   init(): void {
-    if (!this.isEnabled) return
+    if (!this.isEnabled || typeof window === 'undefined') return
 
     // Core Web Vitals
     onCLS((metric) => this.sendMetric(this.formatMetric(metric, 'CLS')))
@@ -100,14 +109,16 @@ class PerformanceMonitor {
       id: metric.id,
       navigationType: metric.navigationType,
       timestamp: Date.now(),
-      url: window.location.href,
-      userAgent: navigator.userAgent,
-      connectionType: (navigator as any).connection?.effectiveType,
-      deviceMemory: (navigator as any).deviceMemory,
+      url: typeof window !== 'undefined' ? window.location.href : '',
+      userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : '',
+      connectionType: typeof navigator !== 'undefined' ? (navigator as any).connection?.effectiveType : undefined,
+      deviceMemory: typeof navigator !== 'undefined' ? (navigator as any).deviceMemory : undefined,
     }
   }
 
   private trackPageLoad(): void {
+    if (typeof window === 'undefined') return
+    
     window.addEventListener('load', () => {
       const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming
       
@@ -119,8 +130,8 @@ class PerformanceMonitor {
           id: 'dom-content-loaded',
           navigationType: 'navigate',
           timestamp: Date.now(),
-          url: window.location.href,
-          userAgent: navigator.userAgent,
+          url: typeof window !== 'undefined' ? window.location.href : '',
+          userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : '',
         })
 
         this.sendMetric({
@@ -130,14 +141,16 @@ class PerformanceMonitor {
           id: 'page-load',
           navigationType: 'navigate',
           timestamp: Date.now(),
-          url: window.location.href,
-          userAgent: navigator.userAgent,
+          url: typeof window !== 'undefined' ? window.location.href : '',
+          userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : '',
         })
       }
     })
   }
 
   private trackRouteChanges(): void {
+    if (typeof window === 'undefined' || typeof history === 'undefined') return
+    
     // Track SPA route changes
     let routeStartTime = Date.now()
     
@@ -151,7 +164,7 @@ class PerformanceMonitor {
         navigationType: 'back_forward',
         timestamp: Date.now(),
         url: window.location.href,
-        userAgent: navigator.userAgent,
+        userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : '',
       })
       routeStartTime = Date.now()
     })
@@ -172,6 +185,7 @@ class PerformanceMonitor {
   }
 
   private trackMemoryUsage(): void {
+    if (typeof window === 'undefined' || typeof performance === 'undefined') return
     if ('memory' in performance) {
       // Initial memory reading
       setTimeout(() => {
@@ -183,8 +197,8 @@ class PerformanceMonitor {
           id: 'memory-usage',
           navigationType: 'navigate',
           timestamp: Date.now(),
-          url: window.location.href,
-          userAgent: navigator.userAgent,
+          url: typeof window !== 'undefined' ? window.location.href : '',
+          userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : '',
         })
       }, 5000) // After 5 seconds
 
@@ -198,14 +212,16 @@ class PerformanceMonitor {
           id: 'memory-usage-periodic',
           navigationType: 'navigate',
           timestamp: Date.now(),
-          url: window.location.href,
-          userAgent: navigator.userAgent,
+          url: typeof window !== 'undefined' ? window.location.href : '',
+          userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : '',
         })
       }, 30000) // Every 30 seconds
     }
   }
 
   private trackBundleSize(): void {
+    if (typeof window === 'undefined' || typeof performance === 'undefined') return
+    
     // Track JavaScript bundle sizes
     const resources = performance.getEntriesByType('resource')
     const jsResources = resources.filter(entry => 
@@ -220,14 +236,16 @@ class PerformanceMonitor {
         id: `bundle-${resource.name.split('/').pop()}`,
         navigationType: 'navigate',
         timestamp: Date.now(),
-        url: window.location.href,
-        userAgent: navigator.userAgent,
+        url: typeof window !== 'undefined' ? window.location.href : '',
+        userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : '',
       })
     })
   }
 
   // Public methods for manual tracking
   trackCustomMetric(name: string, value: number, context?: any): void {
+    if (typeof window === 'undefined') return
+    
     this.sendMetric({
       metric: name,
       value,
@@ -236,7 +254,7 @@ class PerformanceMonitor {
       navigationType: 'navigate',
       timestamp: Date.now(),
       url: window.location.href,
-      userAgent: navigator.userAgent,
+      userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : '',
       ...context,
     })
   }

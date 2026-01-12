@@ -1,11 +1,13 @@
+'use client'
+
 import React, { useState, useRef, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useRouter } from 'next/navigation'
 import { ErrorMessage, ErrorSummary } from '@/components'
 
 export const JourneySearch: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState<string>('')
   const [validationError, setValidationError] = useState<string>('')
-  const navigate = useNavigate()
+  const router = useRouter()
   const errorSummaryRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -29,9 +31,9 @@ export const JourneySearch: React.FC = () => {
 
     // Navigate based on selection
     if (selectedOption === 'yes') {
-      navigate('/journey/search-by-name')
+      router.push('/journey/search-by-name')
     } else if (selectedOption === 'no') {
-      navigate('/journey/search-by-location')
+      router.push('/journey/search-by-location')
     }
   }
 

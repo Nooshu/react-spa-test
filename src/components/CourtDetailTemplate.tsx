@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import Link from 'next/link'
 import { CourtData } from '@/data/courts/courtData'
 
 interface CourtDetailTemplateProps {
@@ -9,7 +9,7 @@ interface CourtDetailTemplateProps {
 export const CourtDetailTemplate: React.FC<CourtDetailTemplateProps> = ({ court }) => {
   return (
     <>
-      <Link to="/journey/search-by-name" className="govuk-back-link">
+      <Link href="/journey/search-by-name" className="govuk-back-link">
         Back to search results
       </Link>
 

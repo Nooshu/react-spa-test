@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import Link from 'next/link'
 
 export const PhaseBanner: React.FC = () => {
   return (
@@ -10,13 +10,13 @@ export const PhaseBanner: React.FC = () => {
         </strong>
         <span className="govuk-phase-banner__text">
           This is a new service – your{' '}
-          <Link to="/feedback" className="govuk-link">
+          <Link href="/feedback" className="govuk-link">
             feedback
           </Link>{' '}
           will help us to improve it.
         </span>
         <span className="govuk-phase-banner__text govuk-phase-banner__text--right">
-          <Link to="/cymraeg" className="govuk-link">
+          <Link href="/cymraeg" className="govuk-link">
             Cymraeg
           </Link>
         </span>

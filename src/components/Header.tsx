@@ -1,10 +1,13 @@
+'use client'
+
 import React, { useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { clsx } from 'clsx'
 
 export const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const location = useLocation()
+  const pathname = usePathname()
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
@@ -22,7 +25,7 @@ export const Header: React.FC = () => {
     <header className="govuk-header" role="banner" data-module="govuk-header">
       <div className="govuk-header__container govuk-width-container">
         <div className="govuk-header__logo">
-          <Link to="/" className="govuk-header__link govuk-header__link--homepage">
+          <Link href="/" className="govuk-header__link govuk-header__link--homepage">
             <svg
               focusable="false"
               role="img"
@@ -51,7 +54,7 @@ export const Header: React.FC = () => {
           </Link>
         </div>
         <div className="govuk-header__content">
-          <Link to="/" className="govuk-header__link govuk-header__service-name">
+          <Link href="/" className="govuk-header__link govuk-header__service-name">
             React Single-page Application (SPA) Proof of Concept
           </Link>
           <nav
@@ -79,10 +82,10 @@ export const Header: React.FC = () => {
               {navigationItems.map((item) => (
                 <li key={item.path} className={clsx(
                   'govuk-header__navigation-item',
-                  { 'govuk-header__navigation-item--active': location.pathname === item.path }
+                  { 'govuk-header__navigation-item--active': pathname === item.path }
                 )}>
                   <Link
-                    to={item.path}
+                    href={item.path}
                     className="govuk-header__link"
                     onClick={closeMenu}
                   >
