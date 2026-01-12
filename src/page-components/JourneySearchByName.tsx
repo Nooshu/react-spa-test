@@ -4,12 +4,28 @@ import React, { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { ErrorMessage, ErrorSummary } from '@/components'
 
-export const JourneySearchByName: React.FC = () => {
-  const [searchTerm, setSearchTerm] = useState<string>('')
+interface JourneySearchByNameProps {
+  initialSearchTerm?: string
+}
+
+export const JourneySearchByName: React.FC<JourneySearchByNameProps> = ({ initialSearchTerm = '' }) => {
+  const [searchTerm, setSearchTerm] = useState<string>(initialSearchTerm)
   const [validationError, setValidationError] = useState<string>('')
-  const [hasSearched, setHasSearched] = useState<boolean>(false)
+  const [hasSearched, setHasSearched] = useState<boolean>(!!initialSearchTerm)
   const router = useRouter()
   const errorSummaryRef = useRef<HTMLDivElement>(null)
+
+  // Sync with URL on client-side navigation (only if no initial prop provided)
+  useEffect(() => {
+    if (typeof window !== 'undefined' && !initialSearchTerm) {
+      const params = new URLSearchParams(window.location.search)
+      const urlSearchTerm = params.get('court-search') || ''
+      if (urlSearchTerm) {
+        setSearchTerm(urlSearchTerm)
+        setHasSearched(true)
+      }
+    }
+  }, [initialSearchTerm])
 
   useEffect(() => {
     // Focus on error summary when validation error occurs
@@ -101,7 +117,7 @@ export const JourneySearchByName: React.FC = () => {
             The name of the court or tribunal can be found on a letter, email or text from us.
           </p>
           
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} action="/journey/search-by-name" method="get" noValidate>
             <div className={`govuk-form-group ${validationError ? 'govuk-form-group--error' : ''}`}>
               <label className="govuk-label" htmlFor="court-search">
                 Enter a court name, address, town or city
@@ -162,7 +178,7 @@ export const JourneySearchByName: React.FC = () => {
                   {filteredResults.map((result) => (
                     <li key={result.id} className="govuk-!-margin-bottom-2">
                       <a
-                        href="#"
+                        href={result.url}
                         className="govuk-link govuk-link--no-visited-state"
                         onClick={(e) => {
                           e.preventDefault()

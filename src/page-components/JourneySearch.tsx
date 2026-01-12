@@ -71,7 +71,7 @@ export const JourneySearch: React.FC = () => {
             The name of the court or tribunal can be found on a letter, email or text from us.
           </p>
           
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} action="/journey/search" method="get" noValidate>
             <div className={`govuk-form-group ${validationError ? 'govuk-form-group--error' : ''}`}>
               <fieldset className="govuk-fieldset" aria-describedby={validationError ? 'know-name-error' : undefined}>
                 <legend className="govuk-fieldset__legend govuk-fieldset__legend--l">
