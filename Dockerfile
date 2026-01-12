@@ -48,8 +48,13 @@ USER nextjs
 # Expose port (Render.com will set PORT via environment variable)
 EXPOSE 3000
 
+# Set default port (Render.com will override PORT via environment variable)
+ENV PORT=3000
+# Next.js standalone mode automatically binds to 0.0.0.0 when PORT is set
+
 # Health check - use /health endpoint (matches render.yaml)
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+# Health check runs inside container, so use localhost
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
   CMD node -e "require('http').get('http://localhost:' + (process.env.PORT || 3000) + '/health', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })"
 
 # Use dumb-init to handle signals properly
@@ -57,6 +62,5 @@ ENTRYPOINT ["dumb-init", "--"]
 
 # Start the Next.js application
 # Next.js standalone mode includes a server.js that reads PORT from environment
-# Note: The hostname shown in Next.js output is the internal container hostname.
-# Access the app from your host machine using: http://localhost:3000
+# HOSTNAME=0.0.0.0 ensures the server binds to all interfaces (required for Render.com)
 CMD ["node", "server.js"]
