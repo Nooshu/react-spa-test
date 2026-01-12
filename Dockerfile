@@ -37,6 +37,7 @@ COPY package*.json ./
 RUN npm install --only=production && npm cache clean --force
 
 # Copy built application from builder stage
+# Next.js standalone output includes node_modules and server.js
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 COPY --from=builder --chown=nextjs:nodejs /app/public ./public
@@ -44,15 +45,18 @@ COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 # Switch to non-root user
 USER nextjs
 
-# Expose port
+# Expose port (Render.com will set PORT via environment variable)
 EXPOSE 3000
 
-# Health check
+# Health check - use /health endpoint (matches render.yaml)
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD node -e "require('http').get('http://localhost:3000/api/health', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })"
+  CMD node -e "require('http').get('http://localhost:' + (process.env.PORT || 3000) + '/health', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })"
 
 # Use dumb-init to handle signals properly
 ENTRYPOINT ["dumb-init", "--"]
 
 # Start the Next.js application
+# Next.js standalone mode includes a server.js that reads PORT from environment
+# Note: The hostname shown in Next.js output is the internal container hostname.
+# Access the app from your host machine using: http://localhost:3000
 CMD ["node", "server.js"]

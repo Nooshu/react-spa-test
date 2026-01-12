@@ -9,8 +9,7 @@ services:
     envVars:
       - key: NODE_ENV
         value: production
-      - key: PORT
-        value: 3000
+      # PORT is automatically set by Render.com - don't override it
 
   # Alternative: Node.js native deployment (fallback)
   - type: web

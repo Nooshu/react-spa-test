@@ -3,8 +3,10 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    hostname: react-a11y-test  # Internal container hostname (for Docker networking)
     ports:
-      - "3000:3000"
+      - "3000:3000"  # Map container port 3000 to host port 3000
+                     # Access from browser: http://localhost:3000
     environment:
       - NODE_ENV=production
       - PORT=3000
@@ -24,6 +26,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.dev
+    hostname: react-a11y-test-dev
     ports:
       - "3001:3000"
     environment:
