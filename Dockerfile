@@ -42,6 +42,9 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 
+# Copy startup script to ensure proper binding
+COPY --chown=nextjs:nodejs start-server.js ./start-server.js
+
 # Switch to non-root user
 USER nextjs
 
@@ -50,7 +53,8 @@ EXPOSE 3000
 
 # Set default port (Render.com will override PORT via environment variable)
 ENV PORT=3000
-# Next.js standalone mode automatically binds to 0.0.0.0 when PORT is set
+# Explicitly set HOSTNAME to bind to all interfaces (required for Render.com)
+ENV HOSTNAME=0.0.0.0
 
 # Health check - use /health endpoint (matches render.yaml)
 # Health check runs inside container, so use localhost
@@ -60,7 +64,6 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
 # Use dumb-init to handle signals properly
 ENTRYPOINT ["dumb-init", "--"]
 
-# Start the Next.js application
-# Next.js standalone mode includes a server.js that reads PORT from environment
-# HOSTNAME=0.0.0.0 ensures the server binds to all interfaces (required for Render.com)
-CMD ["node", "server.js"]
+# Start the Next.js application using our wrapper script
+# This ensures HOSTNAME=0.0.0.0 is set before server.js loads
+CMD ["node", "start-server.js"]
